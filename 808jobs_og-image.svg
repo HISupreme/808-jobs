@@ -1,0 +1,88 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- 808jobs.org Open Graph image
+       1200x630 PNG-equivalent. Civic-broadsheet aesthetic.
+       To convert to PNG:
+         npm i -g sharp-cli && sharp -i og-image.svg -o og-image.png
+         OR: open in browser, screenshot, OR use online SVG-to-PNG converter
+   -->
+
+  <defs>
+    <!-- Paper texture via subtle radial gradients (matches site bg) -->
+    <radialGradient id="warmTL" cx="0%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#0a4f5c" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0a4f5c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warmBR" cx="100%" cy="100%" r="55%">
+      <stop offset="0%" stop-color="#8b6914" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#8b6914" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Subtle horizontal rule pattern (echoes the site's grid texture) -->
+    <pattern id="rules" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="23.5" x2="24" y2="23.5" stroke="#1a1612" stroke-width="0.4" stroke-opacity="0.025"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#f4eee2"/>
+  <rect width="1200" height="630" fill="url(#rules)"/>
+  <rect width="1200" height="630" fill="url(#warmTL)"/>
+  <rect width="1200" height="630" fill="url(#warmBR)"/>
+
+  <!-- Top hairline border (like a newspaper masthead) -->
+  <line x1="64" y1="56" x2="1136" y2="56" stroke="#1a1612" stroke-width="2"/>
+
+  <!-- Tiny eyebrow text, top-left -->
+  <text x="64" y="42"
+        font-family="'JetBrains Mono', monospace"
+        font-size="13"
+        font-weight="500"
+        letter-spacing="2.5"
+        fill="#7a6e5e">FREE PUBLIC TOOL · NO SIGNUP · APRIL 2026</text>
+
+  <!-- Date stamp upper right (the signature move) -->
+  <text x="1136" y="42"
+        text-anchor="end"
+        font-family="'JetBrains Mono', monospace"
+        font-size="13"
+        font-weight="500"
+        letter-spacing="2"
+        fill="#7a6e5e">VERIFIED 27 APR 2026</text>
+
+  <!-- Logo / wordmark -->
+  <text x="64" y="146"
+        font-family="'Fraunces', Georgia, serif"
+        font-size="68"
+        font-weight="500"
+        letter-spacing="-2"
+        fill="#1a1612">
+    <tspan fill="#0a4f5c" font-style="italic" font-weight="400">808</tspan><tspan>jobs</tspan>
+  </text>
+
+  <!-- Headline: the full pitch in one editorial sentence -->
+  <text x="64" y="270"
+        font-family="'Fraunces', Georgia, serif"
+        font-size="74"
+        font-weight="420"
+        letter-spacing="-2.2"
+        fill="#1a1612">
+    <tspan x="64" dy="0">Apprenticeship pathways</tspan>
+    <tspan x="64" dy="86">in <tspan font-style="italic" fill="#0a4f5c">Hawaiʻi</tspan>, with the dates</tspan>
+    <tspan x="64" dy="86">we last checked.</tspan>
+  </text>
+
+  <!-- Bottom hairline + meta strip -->
+  <line x1="64" y1="558" x2="1136" y2="558" stroke="#c9bb9c" stroke-width="1"/>
+
+  <!-- Bottom meta row: stats + URL -->
+  <g font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">
+    <text x="64" y="588" fill="#7a6e5e">5,390 ACTIVE APPRENTICES</text>
+    <text x="64" y="608" fill="#7a6e5e" font-size="12">PER HI STATE APPRENTICESHIP COUNCIL</text>
+
+    <text x="490" y="588" fill="#7a6e5e">1,556 NEWLY REGISTERED</text>
+    <text x="490" y="608" fill="#7a6e5e" font-size="12">IN 2024</text>
+
+    <text x="1136" y="588" text-anchor="end" fill="#1a1612" font-weight="500" font-size="16">808JOBS.ORG</text>
+    <text x="1136" y="608" text-anchor="end" fill="#7a6e5e" font-size="12">SISTER TO 808HOUSING.ORG</text>
+  </g>
+</svg>
