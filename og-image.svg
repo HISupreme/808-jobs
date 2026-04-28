@@ -1,0 +1,76 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- 808jobs.org Open Graph image — v4
+       Aligned with new homepage (Apr 2026): "Find a way into a trade" headline,
+       wage hook, dated-honesty doctrine, workforce-shortage context.
+       1200x630. Clean white, near-black ink, single newspaper-red accent.
+   -->
+
+  <!-- Clean white background -->
+  <rect width="1200" height="630" fill="#ffffff"/>
+
+  <!-- Top hairline rule — newspaper masthead style -->
+  <rect x="64" y="56" width="1072" height="2" fill="#1a1a1a"/>
+
+  <!-- Eyebrow text, top-left -->
+  <text x="64" y="42"
+        font-family="'IBM Plex Mono', monospace"
+        font-size="13"
+        font-weight="500"
+        letter-spacing="2.2"
+        fill="#6b6b6b">AN INDEPENDENT HAWAI‘I CIVIC TOOL</text>
+
+  <!-- Date stamp, top-right (the trust mechanism) -->
+  <text x="1136" y="42"
+        text-anchor="end"
+        font-family="'IBM Plex Mono', monospace"
+        font-size="13"
+        font-weight="500"
+        letter-spacing="2"
+        fill="#6b6b6b">VERIFIED 27 APR 2026</text>
+
+  <!-- Masthead mark + wordmark -->
+  <rect x="64" y="118" width="10" height="10" fill="#a63629"/>
+  <text x="86" y="146"
+        font-family="'IBM Plex Serif', Georgia, serif"
+        font-size="60"
+        font-weight="600"
+        letter-spacing="-1.5"
+        fill="#1a1a1a">808jobs</text>
+
+  <!-- Headline — matches homepage: "Find a way into a trade in Hawai‘i." -->
+  <text x="64" y="270"
+        font-family="'IBM Plex Serif', Georgia, serif"
+        font-size="64"
+        font-weight="600"
+        letter-spacing="-1.5"
+        fill="#1a1a1a">
+    <tspan x="64" dy="0">Find a way into a trade</tspan>
+    <tspan x="64" dy="78">in Hawai‘i.</tspan>
+  </text>
+
+  <!-- Lede sentence — wage hook first, then product. Punchier 2-line version. -->
+  <text x="64" y="448"
+        font-family="'IBM Plex Sans', sans-serif"
+        font-size="28"
+        font-weight="400"
+        letter-spacing="-0.3"
+        fill="#333333">
+    <tspan x="64" dy="0">Many trades pay $80+/hour at journey level.</tspan>
+    <tspan x="64" dy="40">Here are 73 paid paths in.</tspan>
+  </text>
+
+  <!-- Bottom hairline -->
+  <rect x="64" y="558" width="1072" height="1" fill="#d8d6d0"/>
+
+  <!-- Bottom strip: workforce-shortage data + URL -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="13" letter-spacing="1.2" fill="#6b6b6b">
+    <text x="64" y="588">15–20% TRADES VACANCY RATE</text>
+    <text x="64" y="608" font-size="11">SOURCE: ABC HAWAI‘I, 2023–2024</text>
+
+    <text x="430" y="588">40% OF TRADESPEOPLE OVER 50</text>
+    <text x="430" y="608" font-size="11">SOURCE: HAWAI‘I CONSTRUCTION INDUSTRY DATA</text>
+
+    <text x="1136" y="588" text-anchor="end" fill="#1a1a1a" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="16" letter-spacing="0">808JOBS.ORG</text>
+    <text x="1136" y="608" text-anchor="end" font-size="11">SISTER TO 808HOUSING.ORG</text>
+  </g>
+</svg>
