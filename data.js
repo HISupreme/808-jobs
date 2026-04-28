@@ -42,7 +42,7 @@ window.DATA = {
       ojtHours: "8,000", lengthYears: "~4", minAge: 16, hsRequired: true, appFee: null,
       status: "unknown",
       statusNote: "Address: 2251 N. School Street. Training Director: Patrick Nakayama (added 02/02/2026).",
-      applyUrl: "http://www.bacweb.org", phone: "(808) 848-0565",
+      applyUrl: "https://www.bacweb.org", phone: "(808) 848-0565",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -65,7 +65,7 @@ window.DATA = {
       ojtHours: "8,000", lengthYears: "~4", minAge: 18, hsRequired: true, appFee: null,
       status: "rolling",
       statusNote: "Address: 3049 Ualena Street Suite 410. Must be employed by ABC member 6+ continuous weeks. \"Building Hawaii Together\" cohorts (Castle Foundation funded).",
-      applyUrl: "http://www.abchawaii.org/", phone: "(808) 845-4887",
+      applyUrl: "https://www.abchawaii.org/education/apprenticeship/", phone: "(808) 845-4887",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: ["abc-building-hawaii-together"], featured: true
@@ -76,7 +76,7 @@ window.DATA = {
       ojtHours: "8,000", lengthYears: "~4", minAge: 16, appFee: null,
       status: "unknown",
       statusNote: "Address: 2251 N. School Street. Training Director: Patrick Nakayama (eff 02/02/2026).",
-      applyUrl: "http://www.opcmia.org/", phone: "(808) 848-0565",
+      applyUrl: "https://www.opcmia.org/", phone: "(808) 848-0565",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -120,7 +120,7 @@ window.DATA = {
       algebraRequired: "1 yr HS algebra", appFee: null,
       status: "rolling",
       statusNote: "Color blindness disqualifying. Must be employed by ABC member 6+ weeks.",
-      applyUrl: "http://www.abchawaii.org/", phone: "(808) 845-4887",
+      applyUrl: "https://www.abchawaii.org/education/apprenticeship/", phone: "(808) 845-4887",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: ["abc-building-hawaii-together"], featured: false
@@ -155,7 +155,7 @@ window.DATA = {
       ojtHours: "6,800", lengthYears: "~3.5", minAge: 18, hsRequired: true, appFee: null,
       status: "unknown",
       statusNote: "Aptitude test (math, reading) + medical exam. Business Rep: Marc Yamane.",
-      applyUrl: "http://iuec.org/", phone: "(808) 536-8653",
+      applyUrl: "https://www.iuec126.org/", phone: "(808) 536-8653",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -210,7 +210,7 @@ window.DATA = {
       ojtHours: "10,000", lengthYears: "~5", minAge: 18, hsRequired: true, appFee: null,
       status: "unknown",
       statusNote: "Trade renamed in Act 17 list (formerly Heat & Frost Asbestos Insulator). Coordinator: Bernard Alvarez.",
-      applyUrl: "http://www.insulators.org/", phone: "(808) 521-6405",
+      applyUrl: "https://www.insulators.org/", phone: "(808) 521-6405",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -230,7 +230,7 @@ window.DATA = {
       type: "union", islands: "Oahu (Waipahu)",
       ojtHours: "8,000", lengthYears: "~4", minAge: 18, hsRequired: true, appFee: null,
       status: "unknown", statusNote: "Must be sponsored by signatory employer. JATC Chair: Daniel Woo.",
-      applyUrl: "http://www.ironworkers.org/", phone: "(808) 671-4344",
+      applyUrl: "https://www.ironworkers.org/", phone: "(808) 671-4344",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -240,7 +240,7 @@ window.DATA = {
       type: "union", islands: "Oahu (Waipahu)",
       ojtHours: "6,000", lengthYears: "~3", minAge: 16, appFee: null,
       status: "unknown", statusNote: "Training Coordinator: Lincoln P. Naiwi, Jr.",
-      applyUrl: "http://www.ironworkers.org/", phone: "(808) 671-8225",
+      applyUrl: "https://www.ironworkers.org/", phone: "(808) 671-8225",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -250,7 +250,7 @@ window.DATA = {
       type: "union", islands: "Oahu (Waipahu)",
       ojtHours: "6,000", lengthYears: "~3", minAge: 16, appFee: null,
       status: "unknown", statusNote: "Training Coordinator: Lincoln P. Naiwi, Jr.",
-      applyUrl: "http://www.ironworkers.org/", phone: "(808) 671-8225",
+      applyUrl: "https://www.ironworkers.org/", phone: "(808) 671-8225",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -316,7 +316,7 @@ window.DATA = {
       type: "non-union", islands: "Oahu",
       ojtHours: "8,000", lengthYears: "~4", minAge: 18, appFee: null,
       status: "rolling", statusNote: "Must be employed by ABC member 6+ weeks.",
-      applyUrl: "http://www.abchawaii.org/", phone: "(808) 845-4887",
+      applyUrl: "https://www.abchawaii.org/education/apprenticeship/", phone: "(808) 845-4887",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -338,7 +338,7 @@ window.DATA = {
       ojtHours: "8,000", lengthYears: "~4", minAge: 16, appFee: null,
       status: "unknown",
       statusNote: "Address: 2251 N. School Street. Training Director: Patrick Nakayama (eff 02/02/2026).",
-      applyUrl: "http://www.opcmia.org/", phone: "(808) 845-0565",
+      applyUrl: "https://www.opcmia.org/", phone: "(808) 845-0565",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -359,7 +359,7 @@ window.DATA = {
       type: "non-union", islands: "Oahu",
       ojtHours: "10,000", lengthYears: "~5", minAge: 18, appFee: null,
       status: "rolling", statusNote: "Must be employed by ABC member 6+ weeks.",
-      applyUrl: "http://www.abchawaii.org/", phone: "(808) 845-4887",
+      applyUrl: "https://www.abchawaii.org/education/apprenticeship/", phone: "(808) 845-4887",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -369,7 +369,7 @@ window.DATA = {
       type: "union", islands: "Oahu",
       ojtHours: "6,000", lengthYears: "~3", minAge: 16, hsRequired: true, appFee: null,
       status: "unknown", statusNote: "Address: 2251 N. School Street.",
-      applyUrl: "http://www.bacweb.org", phone: "(808) 848-0585",
+      applyUrl: "https://www.bacweb.org", phone: "(808) 848-0585",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -389,7 +389,7 @@ window.DATA = {
       type: "union", islands: "Oahu",
       ojtHours: "8,000", lengthYears: "~4", minAge: 17, hsRequired: true, driverLicense: true, appFee: null,
       status: "unknown", statusNote: "Must lift 100 lbs. Training Director: Enrique K. Subiono.",
-      applyUrl: "http://www.unionroofers.com", phone: "(808) 847-5757",
+      applyUrl: "https://www.unionroofers.com", phone: "(808) 847-5757",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -399,7 +399,7 @@ window.DATA = {
       type: "non-union", islands: "Oahu",
       ojtHours: "7,000", lengthYears: "~3.5", minAge: 18, appFee: null,
       status: "rolling", statusNote: "Must be employed by ABC member 6+ weeks.",
-      applyUrl: "http://www.abchawaii.org/", phone: "(808) 845-4887",
+      applyUrl: "https://www.abchawaii.org/education/apprenticeship/", phone: "(808) 845-4887",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -409,7 +409,7 @@ window.DATA = {
       type: "union", islands: "Oahu",
       ojtHours: "10,000", lengthYears: "~5", minAge: 18, hsRequired: true, driverLicense: true, appFee: null,
       status: "unknown", statusNote: "Industry test required. Training Coordinator: Burton Takafuji.",
-      applyUrl: "http://www.smwia.org/", phone: "(808) 841-6106",
+      applyUrl: "https://www.smwia.org/", phone: "(808) 841-6106",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -429,7 +429,7 @@ window.DATA = {
       type: "union", islands: "Oahu",
       ojtHours: "8,000", lengthYears: "~4", minAge: 16, hsRequired: true, appFee: null,
       status: "unknown", statusNote: "Address: 2251 N. School Street.",
-      applyUrl: "http://www.bacweb.org", phone: "(808) 848-0585",
+      applyUrl: "https://www.bacweb.org", phone: "(808) 848-0585",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -440,7 +440,7 @@ window.DATA = {
       ojtHours: "8,000", lengthYears: "~4", minAge: 18, hsRequired: true, driverLicense: true, appFee: null,
       status: "rolling",
       statusNote: "Now part of DC50. Training Coordinator: Garrett Russell. Aug 2025: pre-app pathway registered.",
-      applyUrl: "http://www.dc50.org/", phone: "(808) 947-6606",
+      applyUrl: "https://www.dc50.org/", phone: "(808) 947-6606",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list plus August 2025 SAC minutes.",
       pathways: [], featured: false
@@ -450,7 +450,7 @@ window.DATA = {
       type: "union", islands: "Oahu",
       ojtHours: "8,000", lengthYears: "~4", minAge: 16, hsRequired: true, appFee: null,
       status: "unknown", statusNote: "Address: 2251 N. School Street.",
-      applyUrl: "http://www.bacweb.org", phone: "(808) 848-0565",
+      applyUrl: "https://www.bacweb.org", phone: "(808) 848-0565",
       lastVerified: "2026-02-26", tier: "verified-2026",
       tierNote: "Confirmed via Act 17 list (rev 02/26/2026).",
       pathways: [], featured: false
@@ -722,8 +722,8 @@ window.DATA = {
       id: "NC-108", trade: "Phlebotomist", sponsor: "Clinical Laboratories of Hawaii",
       type: "non-union", islands: "Oahu (Aiea)",
       ojtHours: "2,000", lengthYears: "~1", minAge: 17, hsRequired: true, appFee: null,
-      status: "unknown", statusNote: "",
-      applyUrl: "https://www.clinicallabs.com", phone: "(808) 961-7702",
+      status: "unknown", statusNote: "Clinical Labs of Hawaii hires phlebotomists directly. Whether the formal registered apprenticeship is still active is not independently verified — call to confirm.",
+      applyUrl: "https://www.clinicallabs.com/careers/", phone: "(808) 961-7702",
       lastVerified: "2021-01-20", tier: "dlir-2021",
       tierNote: "Last DLIR-confirmed January 2021. We have not independently verified this program is still accepting applicants. Please call to confirm before applying.",
       pathways: [], featured: false
@@ -732,8 +732,8 @@ window.DATA = {
       id: "NC-109", trade: "Phlebotomist", sponsor: "Diagnostic Laboratory Services",
       type: "non-union", islands: "Oahu (Aiea)",
       ojtHours: "2,000", lengthYears: "~1", minAge: 17, hsRequired: true, appFee: null,
-      status: "unknown", statusNote: "",
-      applyUrl: "https://dlslab.com", phone: "(808) 589-5247",
+      status: "unknown", statusNote: "Diagnostic Lab Services hires phlebotomists directly. Whether the formal registered apprenticeship is still active is not independently verified — call to confirm.",
+      applyUrl: "https://dlslab.com/education/", phone: "(808) 589-5247",
       lastVerified: "2021-01-20", tier: "dlir-2021",
       tierNote: "Last DLIR-confirmed January 2021. We have not independently verified this program is still accepting applicants. Please call to confirm before applying.",
       pathways: [], featured: false
@@ -753,7 +753,7 @@ window.DATA = {
       type: "non-union", islands: "Maui (Kahului)",
       ojtHours: "2,000", lengthYears: "~1", hsRequired: "Preferred", appFee: null,
       status: "unknown", statusNote: "",
-      applyUrl: "https://www.halemakua.org", phone: "(808) 877-2761",
+      applyUrl: "https://www.halemakua.org/careers", phone: "(808) 877-2761",
       lastVerified: "2021-01-20", tier: "dlir-2021",
       tierNote: "Last DLIR-confirmed January 2021.",
       pathways: [], featured: false
@@ -769,7 +769,7 @@ window.DATA = {
       lengthYears: "~3", minAge: 17, hsRequired: true, appFee: "$137 ACF + $75 CdC",
       status: "open-now",
       statusNote: "3-year ACF-registered. Prerequisites: CULN 110/120. Yields ACF Certified Culinarian. Coordinator: Mark Okumura, om2@hawaii.edu.",
-      applyUrl: "http://culinary.kapiolani.hawaii.edu/culinary-apprenticeship-program/", phone: "(808) 734-9485",
+      applyUrl: "https://culinary.kapiolani.hawaii.edu/culinary-apprenticeship-program/", phone: "(808) 734-9485",
       lastVerified: "2026-04-26", tier: "verified-2026",
       tierNote: "Confirmed via direct research April 2026.",
       pathways: [], featured: false
@@ -807,7 +807,7 @@ window.DATA = {
       ojtHours: "2,000-4,000", lengthYears: "~1-2", minAge: 18,
       hsRequired: "Associate or 2 yrs Bachelor's", appFee: null,
       status: "unknown", statusNote: "Competency-based.",
-      applyUrl: "https://www.hmsa.com", phone: "(808) 948-5133",
+      applyUrl: "https://www.hmsa.com/careers/", phone: "(808) 948-5133",
       lastVerified: "2021-01-20", tier: "dlir-2021",
       tierNote: "Last DLIR-confirmed January 2021.",
       pathways: [], featured: false
@@ -823,7 +823,7 @@ window.DATA = {
       ojtHours: "6,000", lengthYears: "~3", hsRequired: true, appFee: null,
       status: "unknown",
       statusNote: "13 distinct trades incl. Lineman, Electrical Mechanic, Boiler Mechanic, Substation Electrician, Meter Electrician.",
-      applyUrl: "https://www.hawaiianelectric.com", phone: "(808) 543-4653",
+      applyUrl: "https://www.hawaiianelectric.com/community-and-education/career-and-technical-education", phone: "(808) 543-4653",
       lastVerified: "2021-01-20", tier: "dlir-2021",
       tierNote: "Last DLIR-confirmed January 2021.",
       pathways: [], featured: false
@@ -968,7 +968,7 @@ window.DATA = {
       what: "21 cohorts of 10-15 students. Pre-apprenticeship pipeline into ABC's non-union apprenticeships across 5 trades.",
       cost: "Free for qualified participants",
       contact: "(808) 845-4887",
-      url: "http://www.abchawaii.org/",
+      url: "https://www.abchawaii.org/",
       featured: false
     },
     {
