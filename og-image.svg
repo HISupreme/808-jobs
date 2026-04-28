@@ -1,94 +1,76 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
-  <!-- 808jobs.org Open Graph image — v2 (Hawaiʻi-as-it-is palette)
-       1200x630 PNG-equivalent. Civic-broadsheet aesthetic.
-       To convert to PNG: open in browser → screenshot, OR use online SVG-to-PNG converter
+  <!-- 808jobs.org Open Graph image — v3 (newspaper / Civil Beat aesthetic)
+       1200x630. Clean white, near-black ink, single newspaper-red accent.
+       To convert to PNG: open in browser → screenshot at 1200x630, OR use online SVG-to-PNG converter
    -->
 
-  <defs>
-    <radialGradient id="warmTL" cx="0%" cy="0%" r="55%">
-      <stop offset="0%" stop-color="#0d4a64" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#0d4a64" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="warmBR" cx="100%" cy="100%" r="55%">
-      <stop offset="0%" stop-color="#8a5d18" stop-opacity="0.07"/>
-      <stop offset="100%" stop-color="#8a5d18" stop-opacity="0"/>
-    </radialGradient>
+  <!-- Clean white background -->
+  <rect width="1200" height="630" fill="#ffffff"/>
 
-    <pattern id="rules" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="23.5" x2="24" y2="23.5" stroke="#15110d" stroke-width="0.4" stroke-opacity="0.030"/>
-    </pattern>
-  </defs>
+  <!-- Top hairline rule — newspaper masthead style -->
+  <rect x="64" y="56" width="1072" height="2" fill="#1a1a1a"/>
 
-  <!-- Paper background -->
-  <rect width="1200" height="630" fill="#f1eadc"/>
-  <rect width="1200" height="630" fill="url(#rules)"/>
-  <rect width="1200" height="630" fill="url(#warmTL)"/>
-  <rect width="1200" height="630" fill="url(#warmBR)"/>
-
-  <!-- Top color stripe — the three palette accents (channel-water teal, kapa amber, ʻōhiʻa rust) -->
-  <rect x="64" y="50" width="357" height="3" fill="#0d4a64"/>
-  <rect x="421" y="50" width="357" height="3" fill="#8a5d18"/>
-  <rect x="778" y="50" width="358" height="3" fill="#8e3221"/>
-
-  <!-- Eyebrow -->
+  <!-- Eyebrow text, top-left -->
   <text x="64" y="42"
-        font-family="'JetBrains Mono', monospace"
+        font-family="'IBM Plex Mono', monospace"
         font-size="13"
         font-weight="500"
-        letter-spacing="2.5"
-        fill="#6e6353">FREE PUBLIC TOOL · NO SIGNUP · APRIL 2026</text>
+        letter-spacing="2.2"
+        fill="#6b6b6b">AN INDEPENDENT HAWAI‘I CIVIC TOOL</text>
 
-  <!-- Date stamp -->
+  <!-- Date stamp, top-right (the trust mechanism) -->
   <text x="1136" y="42"
         text-anchor="end"
-        font-family="'JetBrains Mono', monospace"
+        font-family="'IBM Plex Mono', monospace"
         font-size="13"
         font-weight="500"
         letter-spacing="2"
-        fill="#6e6353">VERIFIED 27 APR 2026</text>
+        fill="#6b6b6b">VERIFIED 27 APR 2026</text>
 
-  <!-- Wordmark -->
-  <text x="64" y="146"
-        font-family="'Source Serif 4', Georgia, serif"
-        font-size="68"
-        font-weight="700"
-        letter-spacing="-2"
-        fill="#15110d">
-    <tspan fill="#0d4a64" font-style="italic" font-weight="600">808</tspan><tspan>jobs</tspan>
-  </text>
-
-  <!-- Headline -->
-  <text x="64" y="276"
-        font-family="'Source Serif 4', Georgia, serif"
-        font-size="76"
+  <!-- Masthead mark + wordmark -->
+  <rect x="64" y="118" width="10" height="10" fill="#a63629"/>
+  <text x="86" y="146"
+        font-family="'IBM Plex Serif', Georgia, serif"
+        font-size="60"
         font-weight="600"
-        letter-spacing="-2.2"
-        fill="#15110d">
-    <tspan x="64" dy="0">Find a way into a trade</tspan>
-    <tspan x="64" dy="88">in <tspan font-style="italic" fill="#0d4a64">Hawaiʻi</tspan>.</tspan>
+        letter-spacing="-1.5"
+        fill="#1a1a1a">808jobs</text>
+
+  <!-- Headline — single editorial line, no italic, no display flourish -->
+  <text x="64" y="280"
+        font-family="'IBM Plex Serif', Georgia, serif"
+        font-size="64"
+        font-weight="600"
+        letter-spacing="-1.5"
+        fill="#1a1a1a">
+    <tspan x="64" dy="0">Registered apprenticeships</tspan>
+    <tspan x="64" dy="78">in Hawai‘i.</tspan>
   </text>
 
-  <!-- Subhead -->
-  <text x="64" y="488"
-        font-family="'Source Serif 4', Georgia, serif"
+  <!-- Lede sentence — sans-serif, smaller, factual -->
+  <text x="64" y="448"
+        font-family="'IBM Plex Sans', sans-serif"
         font-size="22"
         font-weight="400"
-        fill="#2e2820">
-    <tspan x="64" dy="0">Apprenticeship pathways with the dates we last checked.</tspan>
-    <tspan x="64" dy="32" fill="#6e6353" font-size="20">Sister to 808housing.org.</tspan>
+        letter-spacing="-0.2"
+        fill="#333333">
+    <tspan x="64" dy="0">The state's public list for job-seekers hasn't been updated since</tspan>
+    <tspan x="64" dy="32">January 2021. We rebuilt it. Every listing carries the date we</tspan>
+    <tspan x="64" dy="32">last verified it.</tspan>
   </text>
 
-  <!-- Bottom hairline + meta strip -->
-  <line x1="64" y1="558" x2="1136" y2="558" stroke="#b8a982" stroke-width="1"/>
+  <!-- Bottom hairline -->
+  <rect x="64" y="558" width="1072" height="1" fill="#d8d6d0"/>
 
-  <g font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">
-    <text x="64" y="588" fill="#6e6353">5,390 ACTIVE APPRENTICES</text>
-    <text x="64" y="608" fill="#6e6353" font-size="12">PER HI STATE APPRENTICESHIP COUNCIL</text>
+  <!-- Bottom strip: data + URL -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="13" letter-spacing="1.2" fill="#6b6b6b">
+    <text x="64" y="588">5,390 ACTIVE APPRENTICES</text>
+    <text x="64" y="608" font-size="11">PER HAWAI‘I STATE APPRENTICESHIP COUNCIL</text>
 
-    <text x="490" y="588" fill="#6e6353">70 PROGRAMS CATALOGUED</text>
-    <text x="490" y="608" fill="#6e6353" font-size="12">CHOOSER-DRIVEN INTERFACE</text>
+    <text x="430" y="588">1,556 NEWLY REGISTERED 2024</text>
+    <text x="430" y="608" font-size="11">SOURCE: SAC ANNUAL REPORT</text>
 
-    <text x="1136" y="588" text-anchor="end" fill="#15110d" font-weight="700" font-size="16">808JOBS.ORG</text>
-    <text x="1136" y="608" text-anchor="end" fill="#6e6353" font-size="12">FREE · NO SIGNUP · OPEN SOURCE</text>
+    <text x="1136" y="588" text-anchor="end" fill="#1a1a1a" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="16" letter-spacing="0">808JOBS.ORG</text>
+    <text x="1136" y="608" text-anchor="end" font-size="11">SISTER TO 808HOUSING.ORG</text>
   </g>
 </svg>
