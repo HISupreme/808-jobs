@@ -1,0 +1,76 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- 808jobs.org Open Graph image — v3 (newspaper / Civil Beat aesthetic)
+       1200x630. Clean white, near-black ink, single newspaper-red accent.
+       To convert to PNG: open in browser → screenshot at 1200x630, OR use online SVG-to-PNG converter
+   -->
+
+  <!-- Clean white background -->
+  <rect width="1200" height="630" fill="#ffffff"/>
+
+  <!-- Top hairline rule — newspaper masthead style -->
+  <rect x="64" y="56" width="1072" height="2" fill="#1a1a1a"/>
+
+  <!-- Eyebrow text, top-left -->
+  <text x="64" y="42"
+        font-family="'IBM Plex Mono', monospace"
+        font-size="13"
+        font-weight="500"
+        letter-spacing="2.2"
+        fill="#6b6b6b">AN INDEPENDENT HAWAI‘I CIVIC TOOL</text>
+
+  <!-- Date stamp, top-right (the trust mechanism) -->
+  <text x="1136" y="42"
+        text-anchor="end"
+        font-family="'IBM Plex Mono', monospace"
+        font-size="13"
+        font-weight="500"
+        letter-spacing="2"
+        fill="#6b6b6b">VERIFIED 27 APR 2026</text>
+
+  <!-- Masthead mark + wordmark -->
+  <rect x="64" y="118" width="10" height="10" fill="#a63629"/>
+  <text x="86" y="146"
+        font-family="'IBM Plex Serif', Georgia, serif"
+        font-size="60"
+        font-weight="600"
+        letter-spacing="-1.5"
+        fill="#1a1a1a">808jobs</text>
+
+  <!-- Headline — single editorial line, no italic, no display flourish -->
+  <text x="64" y="280"
+        font-family="'IBM Plex Serif', Georgia, serif"
+        font-size="64"
+        font-weight="600"
+        letter-spacing="-1.5"
+        fill="#1a1a1a">
+    <tspan x="64" dy="0">Registered apprenticeships</tspan>
+    <tspan x="64" dy="78">in Hawai‘i.</tspan>
+  </text>
+
+  <!-- Lede sentence — sans-serif, smaller, factual -->
+  <text x="64" y="448"
+        font-family="'IBM Plex Sans', sans-serif"
+        font-size="22"
+        font-weight="400"
+        letter-spacing="-0.2"
+        fill="#333333">
+    <tspan x="64" dy="0">The state's public list for job-seekers hasn't been updated since</tspan>
+    <tspan x="64" dy="32">January 2021. We rebuilt it. Every listing carries the date we</tspan>
+    <tspan x="64" dy="32">last verified it.</tspan>
+  </text>
+
+  <!-- Bottom hairline -->
+  <rect x="64" y="558" width="1072" height="1" fill="#d8d6d0"/>
+
+  <!-- Bottom strip: data + URL -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="13" letter-spacing="1.2" fill="#6b6b6b">
+    <text x="64" y="588">5,390 ACTIVE APPRENTICES</text>
+    <text x="64" y="608" font-size="11">PER HAWAI‘I STATE APPRENTICESHIP COUNCIL</text>
+
+    <text x="430" y="588">1,556 NEWLY REGISTERED 2024</text>
+    <text x="430" y="608" font-size="11">SOURCE: SAC ANNUAL REPORT</text>
+
+    <text x="1136" y="588" text-anchor="end" fill="#1a1a1a" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="16" letter-spacing="0">808JOBS.ORG</text>
+    <text x="1136" y="608" text-anchor="end" font-size="11">SISTER TO 808HOUSING.ORG</text>
+  </g>
+</svg>
