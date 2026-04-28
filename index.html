@@ -1,0 +1,3241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>808jobs — Apprenticeship pathways in Hawai‘i</title>
+  <meta name="description" content="A free, no-signup civic tool that helps Hawai‘i residents navigate registered apprenticeship and trade-training pathways. Honest data with last-verified dates. Updated quarterly." />
+
+  <!-- Open Graph / Twitter card -->
+  <meta property="og:title" content="808jobs — Apprenticeship pathways in Hawai‘i" />
+  <meta property="og:description" content="A free civic tool. Find apprenticeships in Hawai‘i. Honest data with last-verified dates." />
+  <meta property="og:url" content="https://808jobs.org" />
+  <meta property="og:image" content="https://808jobs.org/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="808jobs — Apprenticeship pathways in Hawai‘i" />
+  <meta name="twitter:description" content="A free civic tool. Find apprenticeships in Hawai‘i. Honest data with last-verified dates." />
+  <meta name="twitter:image" content="https://808jobs.org/og-image.png" />
+
+  <!-- Fonts: Source Serif 4 for display+body (sturdy, neutral, optical-size aware), JetBrains Mono for tabular data -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       808jobs.org — civic broadsheet aesthetic
+       Dominant: paper-cream background + basalt-near-black text
+       Accent: channel-water teal-blue (deep, like moana between islands)
+       Status: cloud-forest green / kapa-amber / ‘ōhi‘a rust
+       Typography: Source Serif 4 (display+body) + JetBrains Mono (data)
+       Palette principle: every color sampled from a real surface in Hawai‘i —
+       basalt, channel water, ‘ōhi‘a lehua, kapa cloth, Ko‘olau cliffs.
+       No tropical/tourism cliché. No saturated pinks/oranges.
+       ========================================================= */
+
+    :root {
+      /* Newspaper: clean white, near-black ink, journalistic accent red */
+      --paper:        #ffffff;
+      --paper-warm:   #f7f6f3;       /* subtle off-white panel for chooser */
+      --paper-edge:   #ebe9e3;
+
+      /* Ink: deep newspaper-print near-black */
+      --ink:          #1a1a1a;
+      --ink-soft:     #333333;
+      --ink-muted:    #6b6b6b;
+      --rule:         #d8d6d0;        /* hairline rules between rows */
+      --rule-strong:  #1a1a1a;        /* heavier section divider */
+
+      /* Primary accent — used very sparingly: newspaper-masthead red */
+      --accent:       #a63629;        /* Honolulu Star-Bulletin legacy red */
+      --accent-deep:  #7a2419;
+      --accent-bg:    #f6e6e3;
+
+      /* Status palette — functional, journalistic */
+      --green:        #2d6b3f;        /* forest green — open / rolling */
+      --green-bg:     #e3eee5;
+      --amber:        #8a6210;        /* mustard — annual / unknown / DLIR-2021 */
+      --amber-bg:     #f5ecd2;
+      --gray:         #555555;        /* gray — unknown / not yet verified */
+      --gray-bg:      #ececec;
+      --rust:         #a63629;        /* newspaper red — wound-down / closed */
+      --rust-bg:      #f6e6e3;
+      --indigo:       #2c4561;        /* deep navy — info, members-only */
+      --indigo-bg:    #dfe5ed;
+
+      /* Back-compat aliases (keep existing classes working) */
+      --teal:         var(--accent);
+      --teal-deep:    var(--accent-deep);
+      --teal-light:   #c97468;
+      --red:          var(--rust);
+      --red-bg:       var(--rust-bg);
+      --purple:       var(--indigo);
+      --purple-bg:    var(--indigo-bg);
+
+      --serif:    'IBM Plex Serif', 'Georgia', serif;       /* page titles + program detail headlines ONLY */
+      --sans:     'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      --mono:     'IBM Plex Mono', 'Courier New', monospace;
+
+      --shadow-card: none;            /* newspaper aesthetic: no card shadows */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--paper);
+      min-height: 100vh;
+      font-feature-settings: 'kern', 'liga';
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* (paper-texture grain overlay removed — newspaper aesthetic uses clean white) */
+
+
+    main, header, footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
+    }
+    a:hover { color: var(--accent-deep); }
+
+    /* ============== TYPE SCALE ============== */
+    h1, h2, h3 {
+      font-family: var(--sans);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--ink);
+      font-feature-settings: 'kern', 'liga', 'lnum';
+    }
+    h1 {
+      /* Page titles use IBM Plex Serif — newspaper-masthead feel.
+         Reserved for actual page titles only; section headings stay sans. */
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.1;
+    }
+    h2 {
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      font-weight: 600;
+    }
+
+    /* ============== LAYOUT ============== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .container-narrow {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============== HEADER / MASTHEAD ============== */
+    header.masthead {
+      border-bottom: 1px solid var(--rule);
+      padding: 18px 0;
+      background: rgba(244, 238, 226, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .masthead-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.6rem;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0;
+    }
+    .logo:hover { color: var(--ink); }
+    .logo-num {
+      color: var(--ink);
+      font-style: normal;
+      font-weight: 600;
+    }
+    .logo-mark {
+      /* tiny red mark before the wordmark, masthead-style accent */
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .logo-word {
+      /* "jobs" rendered as small caps — masthead-editorial feel.
+         Uses OpenType small caps if available; falls back to CSS variant-caps. */
+      text-transform: lowercase;
+      font-variant-caps: all-small-caps;
+      font-feature-settings: 'smcp', 'c2sc';
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      margin-left: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .nav-links a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .nav-links a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .nav-links a.nav-urgent {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .nav-links a.nav-urgent:hover,
+    .nav-links a.nav-urgent.active {
+      color: var(--accent-deep);
+      border-bottom-color: var(--accent-deep);
+    }
+
+    /* ============== TODAY PAGE — "I need work now" ============== */
+    .today-hero {
+      padding: 56px 0 28px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 0;
+    }
+    .today-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .today-hero h1 {
+      max-width: 24ch;
+    }
+    .today-lede {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-top: 16px;
+      max-width: 60ch;
+    }
+
+    /* Honest reality-check box at top */
+    .today-reality {
+      background: var(--paper-warm);
+      border-left: 3px solid var(--accent);
+      padding: 18px 22px;
+      margin: 28px 0 36px;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .today-reality strong {
+      display: block;
+      font-family: var(--sans);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* Tier headers — TODAY / THIS WEEK / THIS MONTH */
+    .today-tier {
+      margin: 44px 0 0;
+    }
+    .today-tier-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
+    }
+    .today-tier-num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .today-tier-title {
+      font-family: var(--sans);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .today-tier-sub {
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-left: auto;
+    }
+
+    /* Each resource = one row, similar to program-row but tighter */
+    .today-resource {
+      display: block;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .today-resource-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .today-resource-name {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .today-resource-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .today-resource-tag.cash {
+      color: #2d6b3f;
+      background: #e3eee5;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .today-resource-tag.benefit {
+      color: #2c4561;
+      background: #dfe5ed;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .today-resource-desc {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      margin-bottom: 10px;
+      max-width: 72ch;
+    }
+    .today-resource-fields {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 4px 14px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .today-resource-fields .field-label {
+      padding-top: 2px;
+    }
+    .today-resource-action {
+      margin-top: 10px;
+    }
+    .today-resource-action a {
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      padding-bottom: 2px;
+      margin-right: 18px;
+      display: inline-block;
+    }
+    .today-resource-action a:hover {
+      border-bottom-color: var(--accent);
+      color: var(--accent-deep);
+    }
+
+    /* Closing note */
+    .today-closing {
+      background: var(--paper-warm);
+      padding: 22px 24px;
+      margin: 48px 0 0;
+      border-radius: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+    .today-closing strong {
+      color: var(--ink);
+    }
+
+    /* Home banner pointing to /today */
+    .urgent-banner {
+      background: var(--accent);
+      color: white;
+      padding: 14px 24px;
+      margin: 32px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+    }
+    .urgent-banner-text {
+      font-weight: 500;
+    }
+    .urgent-banner a {
+      color: white;
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .urgent-banner a:hover {
+      color: white;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 540px) {
+      .today-tier-head { flex-wrap: wrap; }
+      .today-tier-sub { margin-left: 0; width: 100%; }
+      .today-resource-head { gap: 8px; }
+    }
+
+    /* ============== REPORT FORM PAGE ============== */
+    .report-form {
+      margin-top: 32px;
+      max-width: 560px;
+    }
+    .report-field {
+      margin-bottom: 22px;
+    }
+    .report-field label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+    .report-field label .required {
+      color: var(--accent);
+      margin-left: 4px;
+    }
+    .report-field label .optional {
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--ink-muted);
+      font-weight: 400;
+      font-style: italic;
+      font-size: 0.78rem;
+      margin-left: 6px;
+    }
+    .report-input,
+    .report-select,
+    .report-textarea {
+      width: 100%;
+      font-family: var(--sans);
+      font-size: 1rem;
+      color: var(--ink);
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      padding: 10px 12px;
+      transition: border-color 0.15s ease;
+      box-sizing: border-box;
+    }
+    .report-input:focus,
+    .report-select:focus,
+    .report-textarea:focus {
+      outline: none;
+      border-color: var(--ink);
+    }
+    .report-textarea {
+      min-height: 120px;
+      font-family: var(--sans);
+      line-height: 1.5;
+      resize: vertical;
+    }
+    .report-help {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .report-radio-group {
+      display: grid;
+      gap: 10px;
+    }
+    .report-radio {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .report-radio:hover {
+      background: var(--paper-warm);
+    }
+    .report-radio input[type="radio"] {
+      margin-top: 3px;
+      accent-color: var(--accent);
+    }
+    .report-radio span {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .report-submit {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background: var(--ink);
+      border: none;
+      border-radius: 0;
+      padding: 12px 28px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      letter-spacing: 0.01em;
+    }
+    .report-submit:hover {
+      background: var(--accent);
+    }
+    .report-submit:disabled {
+      background: var(--ink-muted);
+      cursor: wait;
+    }
+    .report-success {
+      background: #e3eee5;
+      border-left: 3px solid #2d6b3f;
+      padding: 18px 22px;
+      margin: 28px 0;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .report-success strong {
+      color: #2d6b3f;
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .report-error {
+      background: var(--rust-bg);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      margin: 18px 0;
+      font-size: 0.92rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* ============== HERO / OPENING SECTION ============== */
+    .hero {
+      padding: 64px 0 32px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      max-width: 18ch;
+      margin-bottom: 22px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hero-lede {
+      font-size: 1.18rem;
+      max-width: 60ch;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: baseline;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.02em;
+      padding-top: 12px;
+      border-top: 1px solid var(--rule);
+    }
+    .hero-meta strong { color: var(--ink); font-weight: 500; }
+
+    /* ============== SECTION HEADINGS ============== */
+    .section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .section-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+    .section-title-block {
+      flex: 1 1 60%;
+      min-width: 280px;
+    }
+    .section-title-block p {
+      color: var(--ink-soft);
+      max-width: 56ch;
+      margin-top: 10px;
+      font-size: 1.02rem;
+    }
+
+    /* ============== PROGRAM TABLE / "WHAT'S OPEN" ============== */
+    .program-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 2px solid var(--ink);
+    }
+    .program-row {
+      display: block;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      transition: background-color 0.15s ease, padding-left 0.15s ease, padding-right 0.15s ease;
+      animation: fadeInUp 0.4s ease backwards;
+    }
+    .program-row:hover {
+      background-color: var(--paper-warm);
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+    .program-row-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+    .program-row-titleblock {
+      min-width: 0;
+    }
+    .program-trade {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .program-sponsor {
+      font-family: var(--sans);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+    }
+    .program-row-status {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .program-fields {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 6px 14px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 14px 0;
+    }
+    .field-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding-top: 3px;
+      padding-right: 6px;
+    }
+    .field-label::after {
+      content: ":";
+    }
+    .field-value {
+      color: var(--ink);
+      font-weight: 400;
+      font-family: var(--sans);
+      padding-left: 4px;
+    }
+    .field-pay {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .field-pay strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .field-pay-note {
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+    .field-status-note {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+    .program-row-action {
+      margin-top: 10px;
+    }
+    .program-call-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 6px 0;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s ease;
+    }
+    .program-call-btn:hover {
+      border-bottom-color: var(--accent);
+      color: var(--accent-deep);
+    }
+
+    /* On narrow screens: stack the head, simplify */
+    @media (max-width: 540px) {
+      .program-row-head {
+        grid-template-columns: 1fr;
+      }
+      .program-row-status {
+        align-items: flex-start;
+        text-align: left;
+        flex-direction: row;
+        gap: 12px;
+      }
+      .program-fields {
+        grid-template-columns: max-content 1fr;
+        gap: 4px 10px;
+        font-size: 0.88rem;
+      }
+    }
+
+    /* (legacy classes kept for back-compat; not used on home/programs anymore) */
+    .program-row-main { min-width: 0; }
+    .program-meta { display: flex; flex-wrap: wrap; gap: 14px 22px; font-family: var(--mono); font-size: 0.78rem; color: var(--ink-muted); letter-spacing: 0.02em; }
+    .program-meta-item { display: inline-flex; align-items: baseline; gap: 6px; }
+    .program-meta-label { text-transform: uppercase; font-weight: 500; }
+    .program-meta-value { color: var(--ink); font-weight: 500; }
+    .program-row-side { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; text-align: right; flex-shrink: 0; }
+
+    /* ============== STATUS BADGES ============== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .badge.open    { background: var(--green-bg);  color: var(--green); }
+    .badge.open .badge-dot   { background: var(--green); }
+    .badge.rolling { background: var(--green-bg);  color: var(--green); }
+    .badge.rolling .badge-dot { background: var(--green); }
+    .badge.annual  { background: var(--amber-bg); color: var(--amber); }
+    .badge.annual .badge-dot { background: var(--amber); }
+    .badge.tbd     { background: var(--gray-bg);  color: var(--gray); }
+    .badge.tbd .badge-dot { background: var(--gray); }
+    .badge.unknown { background: var(--gray-bg);  color: var(--gray); }
+    .badge.unknown .badge-dot { background: var(--gray); }
+    .badge.members { background: var(--purple-bg); color: var(--purple); }
+    .badge.members .badge-dot { background: var(--purple); }
+    .badge.paused  { background: var(--red-bg);   color: var(--red); }
+    .badge.paused .badge-dot { background: var(--red); }
+    .badge.wound   { background: var(--red-bg);   color: var(--red); }
+    .badge.wound .badge-dot { background: var(--red); }
+
+    /* The signature: typographic date stamp */
+    .verified-stamp {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      font-weight: 400;
+      padding: 3px 0 0 0;
+      border-top: 1px solid var(--rule);
+      min-width: 14ch;
+      text-align: right;
+    }
+    .verified-stamp strong {
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    /* ============== "NEW" tag ============== */
+    .new-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--paper);
+      background: var(--teal);
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: 500;
+    }
+
+    /* ============== PATHWAYS GRID ============== */
+    .pathways-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .pathway-card {
+      background: var(--paper);
+      padding: 24px 22px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pathway-card:hover {
+      background: var(--paper-warm);
+    }
+    .pathway-card h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+    .pathway-audience {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .pathway-what {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .pathway-card-foot {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+    }
+
+    /* ============== DETAIL PAGES ============== */
+    .detail {
+      padding: 48px 0 80px;
+    }
+    .detail-back {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      display: inline-block;
+      margin-bottom: 32px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .detail-back:hover { color: var(--teal); }
+    .detail-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+    }
+    .detail h1 {
+      margin-bottom: 8px;
+    }
+    .detail-sponsor {
+      font-family: var(--sans);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--ink-muted);
+      margin-bottom: 28px;
+    }
+    .detail-status-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 16px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 32px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    @media (min-width: 900px) {
+      .detail-grid { grid-template-columns: 1.4fr 1fr; gap: 64px; }
+    }
+    .detail-section {
+      margin-bottom: 36px;
+    }
+    .detail-section h2 {
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+      font-family: var(--mono);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .detail-section h3 {
+      margin: 18px 0 8px;
+      font-size: 1.05rem;
+    }
+    .detail-section p { margin-bottom: 12px; }
+    .detail-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .detail-section li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: minmax(120px, 35%) 1fr;
+      gap: 18px;
+      font-size: 0.96rem;
+    }
+    .detail-section li:last-child { border-bottom: none; }
+    .detail-key {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding-top: 2px;
+    }
+    .detail-val {
+      color: var(--ink);
+    }
+    .detail-val a { font-family: var(--mono); font-size: 0.95rem; word-break: break-all; }
+
+    .apply-block {
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+      padding: 24px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+    .apply-block h2 {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 14px;
+    }
+    .apply-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--teal);
+      color: var(--paper);
+      text-decoration: none;
+      padding: 12px 20px;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 1rem;
+      border-radius: 3px;
+      transition: background 0.15s ease;
+      margin-top: 12px;
+    }
+    .apply-cta:hover {
+      background: var(--teal-deep);
+      color: var(--paper);
+    }
+    .phone-link {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      padding: 6px 0;
+    }
+
+    .alt-routes {
+      background: var(--amber-bg);
+      border-left: 3px solid var(--amber);
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 0.95rem;
+    }
+    .alt-routes h4 {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--amber);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .alt-routes ul { list-style: none; padding: 0; }
+    .alt-routes li {
+      display: block;
+      padding: 4px 0;
+      border: none;
+      grid-template-columns: none;
+      font-size: 0.93rem;
+    }
+
+    /* ============== PROSE (how-to-call, about) ============== */
+    .prose {
+      font-size: 1.06rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      max-width: 65ch;
+    }
+    .prose h2 {
+      margin-top: 48px;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+    .prose h3 {
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+    .prose p { margin-bottom: 16px; }
+    .prose ul, .prose ol {
+      margin: 16px 0 20px 24px;
+    }
+    .prose li {
+      margin-bottom: 8px;
+    }
+    .prose strong { color: var(--ink); font-weight: 500; }
+    .prose hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 36px 0;
+    }
+    .prose blockquote {
+      border-left: 3px solid var(--teal);
+      padding: 8px 0 8px 18px;
+      margin: 18px 0;
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: 1.08rem;
+    }
+
+    .pull-quote {
+      font-family: var(--sans);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.4;
+      color: var(--ink);
+      padding: 32px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin: 32px 0;
+      max-width: 50ch;
+    }
+
+    /* ============== FOOTER ============== */
+    footer {
+      border-top: 2px solid var(--ink);
+      padding: 48px 0 32px;
+      margin-top: 32px;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    @media (min-width: 700px) {
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+    }
+    .footer-col h4 {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .footer-col p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { padding: 4px 0; }
+    .footer-col a {
+      color: var(--ink-soft);
+      text-decoration: none;
+    }
+    .footer-col a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--rule);
+      padding-top: 18px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.02em;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ============== ANIMATIONS ============== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .program-row:nth-child(1) { animation-delay: 0.05s; }
+    .program-row:nth-child(2) { animation-delay: 0.10s; }
+    .program-row:nth-child(3) { animation-delay: 0.15s; }
+    .program-row:nth-child(4) { animation-delay: 0.20s; }
+    .program-row:nth-child(5) { animation-delay: 0.25s; }
+    .program-row:nth-child(6) { animation-delay: 0.30s; }
+    .program-row:nth-child(7) { animation-delay: 0.35s; }
+    .program-row:nth-child(8) { animation-delay: 0.40s; }
+    .program-row:nth-child(9) { animation-delay: 0.45s; }
+    .program-row:nth-child(10){ animation-delay: 0.50s; }
+
+    /* ============== FILTER BAR ============== */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 12px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .filter-btn {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border-radius: 2px;
+    }
+    .filter-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .filter-btn.active {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* ============== SORT BAR ============== */
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 8px;
+    }
+    .sort-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-right: 8px;
+      font-weight: 500;
+    }
+    .sort-btn {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      background: transparent;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 0;
+      letter-spacing: -0.005em;
+      transition: color 0.12s ease, border-color 0.12s ease;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .sort-btn:hover {
+      color: var(--ink);
+    }
+    .sort-btn.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ============== CHOOSER (the v2 home interface) ============== */
+    .chooser {
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 28px 28px 24px;
+      margin: 32px 0 0;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+    .chooser::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px; right: -1px;
+      height: 3px;
+      background: var(--ink);
+      border-radius: 0;
+    }
+    .chooser-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+    .chooser-title {
+      font-family: var(--sans);
+      font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 22px;
+      letter-spacing: -0.01em;
+    }
+    .chooser-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .chooser-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chooser-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .chooser-select {
+      font-family: var(--sans);
+      font-size: 1.02rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      padding: 12px 14px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='none' stroke='%2315110d' stroke-width='1.5' d='M1 1.5l5 5 5-5'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 11px;
+      padding-right: 36px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .chooser-select:hover { border-color: var(--teal); }
+    .chooser-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(13, 74, 100, 0.12);
+    }
+
+    .chooser-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--rule);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.02em;
+    }
+    .chooser-count {
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .chooser-count strong {
+      font-family: var(--sans);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-right: 4px;
+    }
+    .chooser-foot a {
+      color: var(--ink-soft);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--rule);
+    }
+    .chooser-foot a:hover { color: var(--teal); text-decoration-color: var(--teal); }
+
+    /* Pre-call tip panel that appears when filters narrow it down */
+    .precall-tip {
+      background: var(--paper);
+      border-left: 3px solid var(--amber);
+      padding: 14px 18px;
+      margin: 18px 0 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      border-radius: 0 3px 3px 0;
+    }
+    .precall-tip strong {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    /* Empty state when no results match */
+    .chooser-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--ink-muted);
+    }
+    .chooser-empty h3 {
+      font-family: var(--sans);
+      font-size: 1.3rem;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .chooser-empty p { max-width: 40ch; margin: 0 auto; }
+
+    /* Results section beneath the chooser */
+    .chooser-results {
+      margin-top: 20px;
+    }
+
+    /* The data-strip below the fold: small honest stats, not a hero element */
+    .data-strip {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 22px 0;
+      margin: 56px 0 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+    .data-strip-cell strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 2px;
+    }
+
+    /* Tighter program rows for chooser results — 4 pieces of info, not 8 */
+    .program-row.compact .program-meta { display: none; }
+    .program-row.compact .program-row-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .program-row.compact .program-call {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-top: 6px;
+    }
+    .program-row.compact .program-call a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--teal-light);
+    }
+    .program-row.compact .program-call a:hover { border-bottom-style: solid; }
+
+    /* ============== RESPONSIVE ============== */
+    @media (max-width: 760px) {
+      .chooser-grid { grid-template-columns: 1fr; gap: 12px; }
+      .chooser { padding: 22px 18px 20px; }
+      .chooser-foot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .data-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 24px;
+      }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      .hero { padding: 40px 0 24px; }
+      .section { padding: 40px 0; }
+      .program-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .program-row-side {
+        align-items: flex-start;
+        text-align: left;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .verified-stamp { text-align: left; min-width: 0; }
+      .nav-links { gap: 16px; font-size: 0.85rem; }
+      .logo { font-size: 1.4rem; }
+      .container, .container-narrow { padding: 0 18px; }
+      .chooser-title { font-size: 1.15rem; }
+    }
+
+    /* ============== UTILITY ============== */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .text-mono { font-family: var(--mono); }
+    .text-muted { color: var(--ink-muted); }
+    .mb-0 { margin-bottom: 0; }
+    .pre-line { white-space: pre-line; }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="container masthead-inner">
+    <a href="/" class="logo" data-route="/"><span class="logo-mark"></span><span class="logo-num">808</span><span class="logo-word">jobs</span></a>
+    <nav class="nav-links">
+      <a href="/" data-route="/">Find</a>
+      <a href="/today" data-route="/today" class="nav-urgent">Need work now</a>
+      <a href="/programs" data-route="/programs">All programs</a>
+      <a href="/pathways" data-route="/pathways">Pathways</a>
+      <a href="/funding" data-route="/funding">Funding</a>
+      <a href="/how-to-call" data-route="/how-to-call">How to call</a>
+      <a href="/about" data-route="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>808jobs</h4>
+        <p>A free, no-signup civic tool that helps Hawai‘i residents navigate apprenticeship pathways. Built by one person in evenings. No ads, no tracking, no data collection.</p>
+        <p>Sister to <a href="https://808housing.org">808housing.org</a>.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The site</h4>
+        <ul>
+          <li><a href="/" data-route="/">Find a program</a></li>
+          <li><a href="/programs" data-route="/programs">All programs</a></li>
+          <li><a href="/pathways" data-route="/pathways">Pathways</a></li>
+          <li><a href="/funding" data-route="/funding">Funding</a></li>
+          <li><a href="/how-to-call" data-route="/how-to-call">How to call</a></li>
+          <li><a href="/about" data-route="/about">About / contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Found something wrong?</h4>
+        <p><a href="/report" data-route="/report">Report a listing</a></p>
+        <p>Or call your local <a href="/about" data-route="/about">American Job Center</a>.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Last data sweep: <strong id="footer-sweep">—</strong></span>
+      <span>Open source · Updated quarterly</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+/* =========================================================
+   808jobs.org — vanilla JS router + view rendering
+   ========================================================= */
+
+const STATUS_LABEL = {
+  'open-now':  'Open now',
+  'rolling':   'Rolling',
+  'annually':  'Opens annually',
+  'tbd':       'Opens TBD',
+  'unknown':   'Status unknown',
+  'members':   'Members only',
+  'paused':    'Paused',
+  'wound-down':'Wound down',
+};
+const STATUS_CLASS = {
+  'open-now':   'open',
+  'rolling':    'rolling',
+  'annually':   'annual',
+  'tbd':        'tbd',
+  'unknown':    'unknown',
+  'members':    'members',
+  'paused':     'paused',
+  'wound-down': 'wound',
+};
+const FUNDING_STATUS_LABEL = {
+  'active': 'Active',
+  'active-but-uncertain': 'Active — at risk',
+  'expiring': 'Expires soon',
+  'paused': 'Paused',
+  'wound-down': 'Wound down',
+};
+const FUNDING_STATUS_CLASS = {
+  'active': 'open',
+  'active-but-uncertain': 'annual',
+  'expiring': 'annual',
+  'paused': 'paused',
+  'wound-down': 'wound',
+};
+const TIER_NOTE = {
+  'verified-2026':     'Confirmed in 2026.',
+  'dlir-2021':         'Last DLIR-confirmed January 2021.',
+  'possibly-inactive': 'Last DLIR-confirmed January 2021. Website inactive.'
+};
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const [y, m, d] = iso.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${parseInt(d, 10)} ${months[parseInt(m, 10)-1]} ${y}`;
+}
+
+function badge(status) {
+  const klass = STATUS_CLASS[status] || 'unknown';
+  const label = STATUS_LABEL[status] || 'Status unknown';
+  return `<span class="badge ${klass}"><span class="badge-dot"></span>${label}</span>`;
+}
+
+function fundingBadge(status) {
+  const klass = FUNDING_STATUS_CLASS[status] || 'unknown';
+  const label = FUNDING_STATUS_LABEL[status] || 'Status unknown';
+  return `<span class="badge ${klass}"><span class="badge-dot"></span>${label}</span>`;
+}
+
+function verifiedStamp(iso) {
+  return `<span class="verified-stamp">Verified <strong>${fmtDate(iso)}</strong></span>`;
+}
+
+/* =========================================================
+   PROGRAM CATEGORIZATION (for the chooser)
+   ========================================================= */
+function categorizeProgram(p) {
+  // Federal / military first — most distinctive
+  if (p.type === 'federal') return 'federal';
+
+  const trade = (p.trade || '').toLowerCase();
+  const sponsor = (p.sponsor || '').toLowerCase();
+
+  // Healthcare
+  if (/medical|nurse|nursing|phlebot|pharmacy|community health|health worker/.test(trade)) return 'healthcare';
+  if (/queen's|ohana pacific|hale makua|hpha|hpa|hpr|center for nursing|cvs|clinical lab|diagnostic lab/.test(sponsor)) return 'healthcare';
+
+  // Tech
+  if (/it help desk|software|web app|programmer|developer|cyber/.test(trade)) return 'tech';
+  if (/devleague|pcatt|hmsa/.test(sponsor)) return 'tech';
+
+  // Education
+  if (/teacher|early childhood|ece|educator/.test(trade)) return 'education';
+
+  // Aviation
+  if (/aero|aircraft|maintenance technician|pilot/.test(trade)) return 'aviation';
+  if (/hawaiian airlines/.test(sponsor)) return 'aviation';
+
+  // Hospitality
+  if (/culinary|hospitality|hariett/.test(trade) || /culinary|hariett/.test(sponsor)) return 'hospitality';
+
+  // Production arts (cohort)
+  if (/production arts/.test(trade)) return 'other';
+
+  // Default: construction (the bulk of the data)
+  return 'construction';
+}
+
+function situationMatch(p, situation) {
+  if (!situation || situation === 'general') return true;
+
+  const text = `${p.statusNote || ''} ${(p.pathways || []).join(' ')}`.toLowerCase();
+  const sponsor = (p.sponsor || '').toLowerCase();
+
+  if (situation === 'veteran') {
+    return /h2h|veteran|gi bill|military|skillbridge|usmap|navfac|navy|pearl harbor|va |dod/.test(text)
+      || p.type === 'federal'
+      || /navy|defense|va |veterans/.test(sponsor);
+  }
+  if (situation === 'justice-impacted') {
+    return /beyond bars|laumaka|going home|incarcerat|justice|reentry|re-entry|liuna/.test(text);
+  }
+  if (situation === 'maui-fire') {
+    return /maui|cnha|hawaiian council|kāko|kako'o|mass timber|lahaina/.test(text)
+      || /maui|cnha/.test(sponsor);
+  }
+  if (situation === 'native-hawaiian') {
+    return /native hawaiian|cnha|alu like|nhctep|hawaiian trades|kāko|kako'o|kupu/.test(text)
+      || /cnha|hawaiian council|alu like/.test(sponsor);
+  }
+  if (situation === 'foster-youth') {
+    return /foster|epic|hi hopes|aging out/.test(text);
+  }
+  if (situation === 'disability') {
+    // No programs specifically tagged; show all (the user should mention DVR on every call)
+    return true;
+  }
+  return true;
+}
+
+function islandMatch(p, island) {
+  if (!island || island === 'any') return true;
+  const isl = (p.islands || '').toLowerCase();
+  if (isl.includes('all islands') || isl.includes('statewide') || isl.includes('hi bases') || isl.includes('per-island')) return true;
+  if (island === 'oahu')      return isl.includes('oahu') || isl.includes('honolulu') || isl.includes('pearl');
+  if (island === 'maui')      return isl.includes('maui');
+  if (island === 'big-island') return isl.includes('big island') || isl.includes('hawaii island') || isl.includes('hawai\u02bbi island') || /hilo|kona/.test(isl);
+  if (island === 'kauai')     return isl.includes('kauai') || isl.includes('kaua');
+  if (island === 'molokai')   return isl.includes('moloka');
+  if (island === 'lanai')     return isl.includes('lana');
+  return false;
+}
+
+function filterPrograms({ category, island, situation }) {
+  return window.DATA.programs.filter(p => {
+    if (category && category !== 'any' && categorizeProgram(p) !== category) return false;
+    if (!islandMatch(p, island)) return false;
+    if (!situationMatch(p, situation)) return false;
+    return true;
+  });
+}
+
+function preCallTip({ category, situation }) {
+  // Personalized "what to have ready before you call" based on the user's picks
+  if (situation === 'veteran') {
+    return `Have your DD-214 ready. Mention veteran status — most programs have direct-entry, GI Bill, or H2H pathways for vets, and they're rarely the first thing the coordinator brings up.`;
+  }
+  if (situation === 'justice-impacted') {
+    return `If you're still inside or in transition, ask whether they accept referrals from Beyond Bars (Carpenters), Laumaka Work Furlough (Laborers), or Going Home Hawai‘i. The Federal Bonding Program can also remove a hiring barrier for the employer.`;
+  }
+  if (situation === 'maui-fire') {
+    return `Mention Maui-fire-impacted status on every call. CNHA Hawaiian Trades Academy and MEO programs are funded specifically for fire-affected residents. Note: the federal NDWG defunded in Feb 2025, so don't rely on it.`;
+  }
+  if (situation === 'native-hawaiian') {
+    return `Ask whether the program partners with ALU LIKE NHCTEP, OHA workforce grants, or CNHA Hawaiian Trades Academy. Hawaiian-language preferred materials may be available.`;
+  }
+  if (situation === 'foster-youth') {
+    return `Ask whether EPIC ‘Ohana HI HOPES has connected youth to this program before. Many sponsors will work with HI HOPES navigators on housing/transport support.`;
+  }
+  if (situation === 'disability') {
+    return `Ask whether the sponsor works with HI Division of Vocational Rehabilitation (DVR). DVR can fund tools, transport, and accommodation at zero cost to the apprentice.`;
+  }
+  if (category === 'construction') {
+    return `Have a current resume, valid HI driver's license (most trades require), and proof of HS diploma or GED. Mention any prior construction hours — even informal work counts toward Direct Entry pathways.`;
+  }
+  if (category === 'tech') {
+    return `Even informal coding, IT, or help-desk experience counts. Be ready to describe it concretely — projects you've built, systems you've supported.`;
+  }
+  if (category === 'healthcare') {
+    return `Most healthcare apprenticeships require a clean background check, current CPR/First Aid (or willingness to get certified), and TB clearance. Some have minimum reading-level tests.`;
+  }
+  if (category === 'aviation') {
+    return `FAA medical clearance is usually required before any A&P track. The Honolulu CC AERO program is the typical pre-apprenticeship pipeline; ask whether prior coursework counts.`;
+  }
+  if (category === 'federal') {
+    return `Federal apprenticeships use USAJOBS — applications are paperwork-heavy and have strict deadlines. Mention any prior federal service (military, civilian, or as a federal contractor).`;
+  }
+  return `Have a current resume, proof of HS diploma or GED, valid ID, and any prior work history documentation ready. Ask the coordinator: "What would make my application stronger?"`;
+}
+
+/* =========================================================
+   ROUTER
+   ========================================================= */
+const routes = {
+  '/':            renderHome,
+  '/today':       renderToday,
+  '/programs':    renderProgramsIndex,
+  '/pathways':    renderPathwaysIndex,
+  '/funding':     renderFundingIndex,
+  '/how-to-call': renderHowToCall,
+  '/report':      renderReport,
+  '/about':       renderAbout,
+};
+
+function navigate(path, replace = false) {
+  if (replace) history.replaceState({}, '', path);
+  else history.pushState({}, '', path);
+  render();
+}
+
+function render() {
+  const path = location.pathname;
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.route === path);
+  });
+
+  let view;
+  if (routes[path]) view = routes[path]();
+  else if (path.startsWith('/program/')) view = renderProgramDetail(path.split('/program/')[1]);
+  else if (path.startsWith('/pathways/')) view = renderPathwayDetail(path.split('/pathways/')[1]);
+  else if (path.startsWith('/funding/'))  view = renderFundingDetail(path.split('/funding/')[1]);
+  else view = renderNotFound();
+
+  document.getElementById('app').innerHTML = view;
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  document.getElementById('footer-sweep').textContent = fmtDate(window.DATA.meta.lastSweep);
+  // Show direction arrow on the active sort button (any sort bar present on this view)
+  if (typeof updateSortButtonLabels === 'function') updateSortButtonLabels();
+}
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[data-route], a[href^="/program/"], a[href^="/pathways/"], a[href^="/funding/"]');
+  if (a) {
+    e.preventDefault();
+    navigate(a.getAttribute('href'));
+  }
+});
+
+document.addEventListener('click', (e) => {
+  const back = e.target.closest('[data-back]');
+  if (back) {
+    e.preventDefault();
+    history.back();
+  }
+});
+
+window.addEventListener('popstate', render);
+
+document.addEventListener('click', (e) => {
+  const row = e.target.closest('[data-program-id]');
+  if (row) {
+    e.preventDefault();
+    navigate(`/program/${row.dataset.programId}`);
+  }
+  const card = e.target.closest('[data-pathway-id]');
+  if (card) {
+    e.preventDefault();
+    navigate(`/pathways/${card.dataset.pathwayId}`);
+  }
+  const fcard = e.target.closest('[data-funding-id]');
+  if (fcard) {
+    e.preventDefault();
+    navigate(`/funding/${fcard.dataset.fundingId}`);
+  }
+});
+
+function applyProgramFilter(f) {
+  document.querySelectorAll('.program-row').forEach(row => {
+    const islands = (row.dataset.islands || '').toLowerCase();
+    const type = row.dataset.type || '';
+    let show = true;
+    if (f === 'all') show = true;
+    else if (f === 'oahu' || f === 'maui' || f === 'kauai' || f === 'big-island') {
+      if (f === 'oahu') show = islands.includes('oahu') || islands.includes('all islands') || islands.includes('statewide');
+      if (f === 'maui') show = islands.includes('maui') || islands.includes('all islands') || islands.includes('statewide');
+      if (f === 'kauai') show = islands.includes('kauai') || islands.includes('all islands') || islands.includes('statewide');
+      if (f === 'big-island') show = islands.includes('big island') || islands.includes('hawai') || islands.includes('all islands') || islands.includes('statewide');
+    } else if (f === 'union' || f === 'non-union' || f === 'federal') {
+      show = type === f;
+    } else if (f === 'new') {
+      show = row.dataset.new === 'true';
+    }
+    row.style.display = show ? '' : 'none';
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const filter = e.target.closest('[data-filter]');
+  if (filter) {
+    e.preventDefault();
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+    filter.classList.add('active');
+    applyProgramFilter(filter.dataset.filter);
+  }
+});
+
+/* CHOOSER (v2 home page) — live-filter on dropdown change */
+/* Sort state — used by updateChooser and the sort-bar clicks.
+   currentSort = active axis; currentDirection = 'asc' or 'desc'
+   Each axis has a sensible default direction (see SORT_DEFAULT_DIRECTION). */
+let currentSort = 'status';
+let currentDirection = 'asc';   // 'asc' = best/shortest first; 'desc' = longest/largest first
+
+const SORT_DEFAULT_DIRECTION = {
+  status:    'asc',     // open-now first
+  hours:     'asc',     // shortest first (fastest path to journey)
+  length:    'asc',     // shortest first
+  verified:  'desc',    // newest first
+  trade:     'asc',     // A→Z
+  pay:       'desc',    // highest first
+};
+
+const STATUS_ORDER = {
+  'open-now':   1,
+  'rolling':    2,
+  'annually':   3,
+  'tbd':        4,
+  'unknown':    5,
+  'members':    6,
+  'paused':     7,
+  'wound-down': 8,
+};
+
+function sortPrograms(programs, sortKey, direction) {
+  direction = direction || SORT_DEFAULT_DIRECTION[sortKey] || 'asc';
+  const sign = direction === 'desc' ? -1 : 1;
+  const arr = programs.slice();
+  switch (sortKey) {
+    case 'hours':
+      return arr.sort((a, b) => sign * (parseHours(a.ojtHours) - parseHours(b.ojtHours)));
+    case 'length':
+      return arr.sort((a, b) => sign * (parseYears(a.lengthYears) - parseYears(b.lengthYears)));
+    case 'verified':
+      // For verified, "asc" means oldest first (rare), "desc" means newest first (default)
+      return arr.sort((a, b) => sign * ((a.lastVerified || '').localeCompare(b.lastVerified || '')));
+    case 'trade':
+      return arr.sort((a, b) => sign * a.trade.localeCompare(b.trade));
+    case 'pay':
+      return arr.sort((a, b) => sign * ((a.wageEnd || 0) - (b.wageEnd || 0)));
+    case 'status':
+    default:
+      return arr.sort((a, b) => {
+        const sa = STATUS_ORDER[a.status] || 99;
+        const sb = STATUS_ORDER[b.status] || 99;
+        if (sa !== sb) return sign * (sa - sb);
+        return a.trade.localeCompare(b.trade);
+      });
+  }
+}
+
+/* Update sort button labels with direction arrow on the active button.
+   Called any time currentSort/currentDirection changes. */
+function updateSortButtonLabels() {
+  document.querySelectorAll('.sort-btn[data-sort], .sort-btn[data-pagesort]').forEach(btn => {
+    const key = btn.dataset.sort || btn.dataset.pagesort;
+    const baseLabel = btn.dataset.baseLabel || btn.textContent.replace(/\s*[↑↓]\s*$/, '').trim();
+    btn.dataset.baseLabel = baseLabel;
+    const isActive = btn.classList.contains('active');
+    if (isActive) {
+      const arrow = currentDirection === 'desc' ? ' ↓' : ' ↑';
+      btn.textContent = baseLabel + arrow;
+    } else {
+      btn.textContent = baseLabel;
+    }
+  });
+}
+
+function parseHours(h) {
+  // "8,000" or "10,000" or "6,000-10,000" or undefined
+  if (!h) return 99999;
+  const s = String(h).replace(/,/g, '').trim();
+  const m = s.match(/(\d+)/);
+  return m ? parseInt(m[1], 10) : 99999;
+}
+
+function parseYears(y) {
+  if (!y) return 99;
+  const s = String(y).replace(/[^\d.]/g, ' ').trim();
+  const m = s.match(/(\d+(?:\.\d+)?)/);
+  return m ? parseFloat(m[1]) : 99;
+}
+
+function updateChooser() {
+  const cat = document.getElementById('ch-category');
+  const isl = document.getElementById('ch-island');
+  const sit = document.getElementById('ch-situation');
+  if (!cat || !isl || !sit) return;
+
+  const params = {
+    category: cat.value,
+    island: isl.value,
+    situation: sit.value,
+  };
+
+  const matches = sortPrograms(filterPrograms(params), currentSort, currentDirection);
+
+  const countEl = document.getElementById('ch-count');
+  const resultsEl = document.getElementById('ch-results');
+  const tipEl = document.getElementById('ch-tip');
+
+  if (countEl) countEl.textContent = matches.length;
+
+  if (resultsEl) {
+    if (matches.length === 0) {
+      resultsEl.innerHTML = `
+        <div class="chooser-empty">
+          <h3>No programs match those choices.</h3>
+          <p>Try widening the trade interest or removing the situation filter. If you're sure there should be a match, the program may not be in our data yet — <a href="/report" data-route="/report">tell us</a>.</p>
+        </div>
+      `;
+    } else {
+      // Show up to 12 with a "see all in this view" hint at bottom if there are more
+      const display = matches.slice(0, 12);
+      resultsEl.innerHTML = display.map(p => renderProgramRow(p, { compact: true })).join('')
+        + (matches.length > 12 ? `<p style="font-family: var(--mono); font-size: 0.82rem; color: var(--ink-muted); text-align: center; padding: 18px 0; letter-spacing: 0.04em;">Showing first 12 of ${matches.length}. <a href="/programs" data-route style="color: var(--accent);">See all matching programs →</a></p>` : '');
+    }
+  }
+
+  // Pre-call tip — only show if user has narrowed past defaults
+  if (tipEl) {
+    const isDefaultPick = params.category === 'any' && params.situation === 'general';
+    if (isDefaultPick) {
+      tipEl.innerHTML = '';
+    } else {
+      tipEl.innerHTML = `
+        <div class="precall-tip">
+          <strong>Before you call</strong>
+          ${preCallTip(params)}
+        </div>
+      `;
+    }
+  }
+}
+
+document.addEventListener('change', (e) => {
+  if (e.target.classList.contains('chooser-select')) {
+    updateChooser();
+  }
+});
+
+/* Sort bar click handler — clicking active button flips direction;
+   clicking a different button switches axis to its default direction. */
+document.addEventListener('click', (e) => {
+  if (e.target.classList && e.target.classList.contains('sort-btn')) {
+    // Chooser sort buttons use data-sort
+    const newSort = e.target.dataset.sort;
+    if (newSort) {
+      if (newSort === currentSort) {
+        // Clicking the active button → flip direction
+        currentDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        // Switching axis — use default direction for that axis
+        currentSort = newSort;
+        currentDirection = SORT_DEFAULT_DIRECTION[newSort] || 'asc';
+      }
+      document.querySelectorAll('.sort-btn[data-sort]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.sort === currentSort);
+      });
+      updateSortButtonLabels();
+      updateChooser();
+      return;
+    }
+    // /programs page sort buttons use data-pagesort
+    const newPageSort = e.target.dataset.pagesort;
+    if (newPageSort) {
+      const list = document.getElementById('programs-list');
+      if (!list) return;
+      // Track direction for the page's sort state separately on the bar element
+      const bar = document.getElementById('programs-sort-bar');
+      if (!bar) return;
+      let pageSort = bar.dataset.pageSort || 'status';
+      let pageDir = bar.dataset.pageDir || (SORT_DEFAULT_DIRECTION[pageSort] || 'asc');
+      if (newPageSort === pageSort) {
+        pageDir = pageDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        pageSort = newPageSort;
+        pageDir = SORT_DEFAULT_DIRECTION[newPageSort] || 'asc';
+      }
+      bar.dataset.pageSort = pageSort;
+      bar.dataset.pageDir = pageDir;
+      const sorted = sortPrograms(window.DATA.programs, pageSort, pageDir);
+      list.innerHTML = sorted.map(p => renderProgramRow(p, { compact: true })).join('');
+      document.querySelectorAll('.sort-btn[data-pagesort]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pagesort === pageSort);
+      });
+      // Update arrows on the page-sort buttons (different state from chooser)
+      document.querySelectorAll('.sort-btn[data-pagesort]').forEach(btn => {
+        const baseLabel = btn.dataset.baseLabel || btn.textContent.replace(/\s*[↑↓]\s*$/, '').trim();
+        btn.dataset.baseLabel = baseLabel;
+        if (btn.classList.contains('active')) {
+          const arrow = pageDir === 'desc' ? ' ↓' : ' ↑';
+          btn.textContent = baseLabel + arrow;
+        } else {
+          btn.textContent = baseLabel;
+        }
+      });
+      // Re-apply any currently-active filter
+      const activeFilter = document.querySelector('.filter-btn.active');
+      if (activeFilter && activeFilter.dataset.filter !== 'all') {
+        applyProgramFilter(activeFilter.dataset.filter);
+      }
+    }
+  }
+});
+
+/* Populate counts on category dropdown — runs once after DOM is ready.
+   Counts are computed live from window.DATA.programs so they stay accurate
+   as the data set grows. */
+function populateCategoryCounts() {
+  const sel = document.getElementById('ch-category');
+  if (!sel || !window.DATA || !window.DATA.programs) return;
+
+  const counts = {};
+  for (const p of window.DATA.programs) {
+    const cat = categorizeProgram(p);
+    counts[cat] = (counts[cat] || 0) + 1;
+  }
+
+  const total = window.DATA.programs.length;
+  for (const opt of sel.options) {
+    const v = opt.value;
+    if (v === 'any') {
+      // Strip any old count, then append fresh
+      opt.textContent = opt.textContent.replace(/\s*\(\d+\)\s*$/, '') + ` (${total})`;
+    } else if (counts[v] !== undefined) {
+      opt.textContent = opt.textContent.replace(/\s*\(\d+\)\s*$/, '') + ` (${counts[v]})`;
+    } else {
+      // Category exists in dropdown but no programs match — show (0)
+      opt.textContent = opt.textContent.replace(/\s*\(\d+\)\s*$/, '') + ' (0)';
+    }
+  }
+}
+// Run once now if DATA is available, else wait for DOMContentLoaded
+if (window.DATA && window.DATA.programs) {
+  populateCategoryCounts();
+} else {
+  document.addEventListener('DOMContentLoaded', populateCategoryCounts);
+}
+
+/* =========================================================
+   VIEWS
+   ========================================================= */
+
+function renderProgramRow(p, opts = {}) {
+  const compact = opts.compact !== false;
+
+  // Phone tap-to-call OR apply URL fallback
+  const callHtml = p.phone
+    ? `<a class="program-call-btn" href="tel:${p.phone.replace(/[^\d+]/g, '')}">📞 Call ${p.phone}</a>`
+    : (p.applyUrl ? `<a class="program-call-btn" href="${p.applyUrl}" target="_blank" rel="noopener">Apply at ${p.applyUrl.replace(/^https?:\/\//, '').replace(/\/$/, '').replace(/^www\./, '').slice(0, 32)}</a>` : '');
+
+  // Pay row: prefer specific wage range; fall back to honest "paid — call" note
+  let payHtml = '';
+  if (p.wageStart > 0 && p.wageEnd > 0) {
+    payHtml = `<span class="field-value field-pay"><strong>$${p.wageStart}/hr</strong> starting → <strong>$${p.wageEnd}/hr</strong> at journey</span>`;
+  } else if (p.wageNote) {
+    payHtml = `<span class="field-value field-pay-note">${p.wageNote}</span>`;
+  } else {
+    payHtml = `<span class="field-value field-pay-note">Paid apprenticeship — call for current wage</span>`;
+  }
+
+  // Length: combine years + OJT hours + classroom if present
+  let lengthBits = [];
+  if (p.lengthYears) lengthBits.push(p.lengthYears + ' yrs');
+  if (p.ojtHours) lengthBits.push(p.ojtHours + ' OJT hrs');
+  if (p.classroomHours) lengthBits.push(p.classroomHours + ' classroom');
+  const lengthHtml = lengthBits.length ? lengthBits.join(' · ') : 'Length varies — call to confirm';
+
+  // Requirements: HS, age, license, app fee — concise summary
+  let reqBits = [];
+  if (p.hsRequired === true) reqBits.push('HS diploma/GED');
+  else if (typeof p.hsRequired === 'string') reqBits.push(p.hsRequired);
+  if (p.algebraRequired) reqBits.push(p.algebraRequired);
+  if (p.minAge) reqBits.push(p.minAge + '+');
+  if (p.driverLicense === true) reqBits.push("driver's license");
+  else if (typeof p.driverLicense === 'string') reqBits.push(p.driverLicense.toLowerCase());
+  if (p.appFee && p.appFee !== 'No fee') reqBits.push('app fee: ' + p.appFee);
+  else if (p.appFee === 'No fee') reqBits.push('no fee');
+  const reqHtml = reqBits.length ? reqBits.join(', ') : '—';
+
+  // Status note (often has the most important context — when the next intake is)
+  const statusNoteHtml = p.statusNote
+    ? `<span class="field-value field-status-note">${p.statusNote}</span>`
+    : '';
+
+  return `
+    <div class="program-row ${compact ? 'compact' : ''}" data-program-id="${p.id}" data-islands="${p.islands}" data-type="${p.type}" data-new="${p.newProgram ? 'true' : 'false'}">
+      <div class="program-row-head">
+        <div class="program-row-titleblock">
+          <div class="program-trade">${p.trade}${p.newProgram ? '<span class="new-tag">New 2024–25</span>' : ''}</div>
+          <div class="program-sponsor">${p.sponsor} · ${p.islands}</div>
+        </div>
+        <div class="program-row-status">
+          ${badge(p.status)}
+          ${verifiedStamp(p.lastVerified)}
+        </div>
+      </div>
+
+      <div class="program-fields">
+        <div class="field-row"><span class="field-label">Pay</span>${payHtml}</div>
+        <div class="field-row"><span class="field-label">Length</span><span class="field-value">${lengthHtml}</span></div>
+        <div class="field-row"><span class="field-label">Requires</span><span class="field-value">${reqHtml}</span></div>
+        ${p.statusNote ? `<div class="field-row"><span class="field-label">Notes</span>${statusNoteHtml}</div>` : ''}
+      </div>
+
+      ${callHtml ? `<div class="program-row-action">${callHtml}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderHome() {
+  const meta = window.DATA.meta;
+
+  // Initial state: show all programs, no situation
+  const initialResults = sortPrograms(filterPrograms({ category: 'any', island: 'any', situation: 'general' }), 'status', 'asc');
+
+  return `
+    <section class="hero" style="padding-bottom: 0;">
+      <div class="container">
+        <div class="hero-eyebrow">An independent Hawai‘i civic tool · Updated ${fmtDate(meta.lastSweep)}</div>
+        <h1 style="font-size: clamp(1.8rem, 4.5vw, 2.8rem); max-width: 26ch; line-height: 1.1; margin-top: 4px;">Registered apprenticeships in&nbsp;Hawai‘i.</h1>
+        <p class="hero-lede" style="max-width: 60ch; margin-top: 14px; margin-bottom: 0; font-size: 1rem; line-height: 1.55;">
+          The state's public list for job-seekers hasn't been updated since January 2021. We rebuilt it. Every listing carries the date we last verified it.
+        </p>
+
+        <div class="urgent-banner">
+          <span class="urgent-banner-text">Apprenticeships take 4–12 weeks to start paying. Need money sooner?</span>
+          <a href="/today" data-route="/today">I need work this week →</a>
+        </div>
+
+        <!-- THE CHOOSER -->
+        <div class="chooser" id="chooser">
+          <div class="chooser-eyebrow">Find what fits</div>
+          <div class="chooser-title">Pick a trade interest, an island, and your situation.</div>
+
+          <div class="chooser-grid">
+            <div class="chooser-field">
+              <label class="chooser-label" for="ch-category">I'm interested in</label>
+              <select class="chooser-select" id="ch-category">
+                <option value="any">Show me everything</option>
+                <option value="construction">Construction trades</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="tech">Tech</option>
+                <option value="education">Education / early childhood</option>
+                <option value="aviation">Aviation</option>
+                <option value="federal">Federal &amp; military</option>
+                <option value="hospitality">Culinary &amp; hospitality</option>
+              </select>
+            </div>
+
+            <div class="chooser-field">
+              <label class="chooser-label" for="ch-island">I'm on</label>
+              <select class="chooser-select" id="ch-island">
+                <option value="any">Any island</option>
+                <option value="oahu">O‘ahu</option>
+                <option value="maui">Maui</option>
+                <option value="big-island">Hawai‘i Island</option>
+                <option value="kauai">Kaua‘i</option>
+                <option value="molokai">Moloka‘i</option>
+                <option value="lanai">Lāna‘i</option>
+              </select>
+            </div>
+
+            <div class="chooser-field">
+              <label class="chooser-label" for="ch-situation">My situation (optional)</label>
+              <select class="chooser-select" id="ch-situation">
+                <option value="general">General — none of the below</option>
+                <option value="veteran">Veteran or military spouse</option>
+                <option value="justice-impacted">Currently or formerly incarcerated</option>
+                <option value="maui-fire">Maui fire survivor</option>
+                <option value="native-hawaiian">Native Hawaiian</option>
+                <option value="foster-youth">Foster youth aging out</option>
+                <option value="disability">Person with a disability</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="chooser-foot">
+            <span class="chooser-count"><strong id="ch-count">${initialResults.length}</strong> programs match</span>
+            <a href="/programs" data-route>Or browse all programs →</a>
+          </div>
+        </div>
+
+        <div id="ch-tip"></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 32px;">
+      <div class="container">
+        <div class="sort-bar" id="ch-sort-bar">
+          <span class="sort-label">Sort by</span>
+          <button class="sort-btn active" data-sort="status">Status</button>
+          <button class="sort-btn" data-sort="pay">Pay</button>
+          <button class="sort-btn" data-sort="hours">Hours</button>
+          <button class="sort-btn" data-sort="length">Length</button>
+          <button class="sort-btn" data-sort="verified">Verified</button>
+          <button class="sort-btn" data-sort="trade">Trade</button>
+        </div>
+        <div id="ch-results" class="chooser-results">
+          ${initialResults.slice(0, 12).map(p => renderProgramRow(p, { compact: true })).join('')}
+        </div>
+
+        <div class="data-strip">
+          <div class="data-strip-cell">
+            <strong>${meta.totalActiveApprentices.toLocaleString()}</strong>
+            active apprentices statewide
+          </div>
+          <div class="data-strip-cell">
+            <strong>${meta.newRegistrations2024.toLocaleString()}</strong>
+            newly registered in 2024
+          </div>
+          <div class="data-strip-cell">
+            <strong>${meta.sponsorCount}</strong>
+            program sponsors
+          </div>
+          <div class="data-strip-cell">
+            <strong>${window.DATA.programs.length}</strong>
+            programs catalogued here
+          </div>
+        </div>
+        <p style="font-family: var(--mono); font-size: 0.78rem; color: var(--ink-muted); margin-top: 12px; letter-spacing: 0.04em;">
+          Per Hawai‘i State Apprenticeship Council, March 2025. Last sweep ${fmtDate(meta.lastSweep)}.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+/* ============== TODAY PAGE ==============
+   For someone who needs work this week, not in 4 years.
+   Honest tiering: today (cash this week) → this week (real jobs in 1-2 weeks)
+   → this month (workforce help). Apprenticeships sit at /programs, not here. */
+function renderToday() {
+  return `
+    <section class="today-hero">
+      <div class="container container-narrow">
+        <div class="today-eyebrow">If you need money this week</div>
+        <h1>You don't have time to wait for an apprenticeship.</h1>
+        <p class="today-lede">
+          Registered apprenticeships are good careers. They are not fast cash. Application → testing → pool of eligible → first paycheck takes <strong>4 to 12 weeks at minimum</strong>. If your rent is due in 14 days, this page is for you.
+        </p>
+
+        <div class="today-reality">
+          <strong>Honest reality check</strong>
+          We don't have magic. There's no Hawai‘i program that puts cash in your hand today. But there are real options that pay this week or next, and there's emergency help if you can't wait that long. Below: ranked by how fast you can actually start earning.
+        </div>
+
+        <!-- TIER 1: Cash this week -->
+        <div class="today-tier">
+          <div class="today-tier-head">
+            <span class="today-tier-num">1</span>
+            <span class="today-tier-title">First, get the rent runway</span>
+            <span class="today-tier-sub">Same-day help for food, rent, utilities</span>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">Aloha United Way 211 Helpline</span>
+              <span class="today-resource-tag benefit">Free emergency aid</span>
+            </div>
+            <div class="today-resource-desc">
+              The single most useful number in Hawai‘i for emergency help. Trained local specialists connect you to food banks, rent assistance, utility aid, childcare help, and more. Statewide, free, confidential, available 7am–10pm seven days a week. They know which programs actually have money right now and which are out — that information changes weekly and is hard to find online.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">Call or text</span><span>2-1-1 from any Hawai‘i phone</span>
+              <span class="field-label">If outside HI</span><span>(877) 275-6569</span>
+              <span class="field-label">Hours</span><span>7:00 AM – 10:00 PM, every day</span>
+              <span class="field-label">Languages</span><span>180+ languages via interpretation</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="tel:211">📞 Call 211</a>
+              <a href="https://www.auw211.org/" target="_blank" rel="noopener">Browse the resource database</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">SNAP (food stamps) — Hawai‘i DHS</span>
+              <span class="today-resource-tag benefit">Free food benefits</span>
+            </div>
+            <div class="today-resource-desc">
+              If you have less than $2,250 in resources and limited income, you may qualify for emergency expedited SNAP — benefits within 7 days. Apply online, by phone, or at a DHS processing center. Even partial-month benefits help; this is the single biggest food-cost reducer.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">Apply online</span><span>medical-quest.hawaii.gov</span>
+              <span class="field-label">Call</span><span>(855) 643-1643 (DHS Public Assistance)</span>
+              <span class="field-label">Expedited</span><span>Ask specifically for "expedited SNAP" if you have under $150/mo income</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="tel:8556431643">📞 Call DHS</a>
+              <a href="https://medical-quest.hawaii.gov/" target="_blank" rel="noopener">Apply online</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">Unemployment Insurance — if you were laid off</span>
+              <span class="today-resource-tag benefit">Up to $763/week</span>
+            </div>
+            <div class="today-resource-desc">
+              If you lost your job through no fault of your own, file for UI immediately. First check arrives in 2–3 weeks. Benefits run up to 26 weeks. Maximum weekly benefit in Hawai‘i is currently $763. The longer you wait to file, the longer until your first check.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">File online</span><span>uiclaims.hawaii.gov (24/7)</span>
+              <span class="field-label">Call center</span><span>(833) 901-2275</span>
+              <span class="field-label">Hours</span><span>Mon–Fri 7:45am–4:30pm HST</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://uiclaims.hawaii.gov/" target="_blank" rel="noopener">File a UI claim</a>
+              <a href="tel:8339012275">📞 Call (833) 901-2275</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIER 2: Earn money in 1-2 weeks -->
+        <div class="today-tier">
+          <div class="today-tier-head">
+            <span class="today-tier-num">2</span>
+            <span class="today-tier-title">Then, start earning</span>
+            <span class="today-tier-sub">Jobs you can begin within days, not months</span>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">American Job Center — walk in, no appointment</span>
+              <span class="today-resource-tag">All islands</span>
+            </div>
+            <div class="today-resource-desc">
+              The state's official one-stop for job matching. Free computers, résumé help, in-person staff who know which employers are hiring this week, and connections to WIOA training stipends if you want to upskill while job-searching. The Oahu location at Dole Cannery accepts walk-ins. Neighbor island offices are appointment-only — call first.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">Oahu</span><span>680 Iwilei Rd, Suite 700, Honolulu — walk-in OK</span>
+              <span class="field-label">Maui</span><span>110 Ala‘ihi St, Suite 209, Kahului · (808) 270-5777</span>
+              <span class="field-label">Big Island</span><span>88 Kanoelehua Ave, Suite A-204, Hilo · (808) 935-6527</span>
+              <span class="field-label">Kaua‘i</span><span>4444 Rice St #302, Lihu‘e · (808) 274-3056</span>
+              <span class="field-label">Cost</span><span>Free</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://ajchawaii.com/" target="_blank" rel="noopener">ajchawaii.com</a>
+              <a href="https://www.honolulu.gov/dcs/american-job-center-hawaii/" target="_blank" rel="noopener">Oahu AJC</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">HireNet Hawai‘i — the state job board</span>
+              <span class="today-resource-tag">Free</span>
+            </div>
+            <div class="today-resource-desc">
+              The state-run job board. Tens of thousands of active openings statewide, including a lot of immediate-hire roles in hospitality, retail, healthcare aides, and warehouse. Filter by "Quick Hire" or "Apply Now" employers. Free account. The job postings here have to be real — employers are vetted.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">Sign up</span><span>hirenethawaii.com</span>
+              <span class="field-label">Cost</span><span>Free</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://www.hirenethawaii.com/" target="_blank" rel="noopener">Open HireNet Hawai‘i</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">Temp agencies — Honolulu</span>
+              <span class="today-resource-tag cash">Pays in 1–2 weeks</span>
+            </div>
+            <div class="today-resource-desc">
+              Temp agencies place you on assignments that often start within days. Common roles: warehouse, light industrial, admin/clerical, hospitality. You're hired by the agency; they handle payroll. Walk in with your ID and they'll fast-track you through paperwork.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">ALTRES Staffing</span><span>(808) 591-4940 · altres.com — Hawai‘i's largest, all islands</span>
+              <span class="field-label">Express Pros</span><span>(808) 836-4500 · expresspros.com — strong on warehouse/clerical</span>
+              <span class="field-label">Robert Half</span><span>(808) 531-8056 — accounting, admin, finance</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://www.altres.com/" target="_blank" rel="noopener">ALTRES</a>
+              <a href="https://www.expresspros.com/" target="_blank" rel="noopener">Express</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">Gig apps — start same day</span>
+              <span class="today-resource-tag cash">Daily/weekly pay</span>
+            </div>
+            <div class="today-resource-desc">
+              You can sign up tonight and start earning tomorrow. Most apps require a background check (1–7 days for rideshare, often instant for delivery). Income varies wildly — be realistic that gross earnings minus gas and wear-and-tear are typically <strong>$15–22/hr</strong> on Oahu. Best for plugging a gap, not a long-term plan.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">DoorDash</span><span>Sign up at doordash.com/dasher — usually approved in 1–3 days</span>
+              <span class="field-label">Uber/Lyft</span><span>Need a 4-door car under 15 years old, valid Hawai‘i license, background check</span>
+              <span class="field-label">Instacart</span><span>Shopper signup — own car required, hourly + tips</span>
+              <span class="field-label">UberEats</span><span>Bike, scooter, or car — fewer requirements than rideshare</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">DoorDash signup</a>
+              <a href="https://shoppers.instacart.com/" target="_blank" rel="noopener">Instacart shopper</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">UNITE HERE Local 5 — hospitality re-employment</span>
+              <span class="today-resource-tag">Hospitality workers</span>
+            </div>
+            <div class="today-resource-desc">
+              If you've worked in Hawai‘i hotels, restaurants, food service, or hospitality before, Local 5 has direct re-employment connections. Even if you weren't a member previously, they can point you toward signatory employers actively hiring. Especially relevant for displaced Maui hotel workers.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">Office</span><span>1516 South King Street, Honolulu</span>
+              <span class="field-label">Phone</span><span>(808) 941-2141</span>
+              <span class="field-label">Web</span><span>unitehere5.org</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="tel:8089412141">📞 Call Local 5</a>
+              <a href="https://unitehere5.org/" target="_blank" rel="noopener">unitehere5.org</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIER 3: This month -->
+        <div class="today-tier">
+          <div class="today-tier-head">
+            <span class="today-tier-num">3</span>
+            <span class="today-tier-title">While you're working, build the next thing</span>
+            <span class="today-tier-sub">Free training and stipends — pay starts within 4–8 weeks</span>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">WIOA training stipends via the AJC</span>
+              <span class="today-resource-tag cash">Stipends + tuition</span>
+            </div>
+            <div class="today-resource-desc">
+              Federal Workforce Innovation and Opportunity Act funding pays for short-term certifications (4–12 weeks) plus a stipend while you study. Common tracks: CDL truck driver, healthcare aide, security guard, IT certifications, welding. You apply through the American Job Center. Eligibility: laid-off, low-income, or facing barriers to employment.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">How</span><span>Walk into any AJC and ask about WIOA</span>
+              <span class="field-label">Time to start</span><span>1–2 weeks for assessment, then enroll</span>
+              <span class="field-label">Cost</span><span>Free if eligible (most laid-off workers qualify)</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://www.hawaiiamericanjobcenter.com/" target="_blank" rel="noopener">Find your AJC</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">Good Jobs Hawai‘i — free fast-track training</span>
+              <span class="today-resource-tag cash">Free + stipends</span>
+            </div>
+            <div class="today-resource-desc">
+              Federally-funded program through the UH Community Colleges. Free training in healthcare (CNA, MA, phlebotomy), tech, skilled trades, hospitality management, and clean energy. Most tracks are 4–16 weeks. Many include a paid stipend ($300–$700/week) while you study. Open enrollment.
+            </div>
+            <div class="today-resource-fields">
+              <span class="field-label">Web</span><span>goodjobshawaii.org</span>
+              <span class="field-label">Cost</span><span>Free for eligible residents</span>
+              <span class="field-label">Track length</span><span>4–16 weeks typical</span>
+            </div>
+            <div class="today-resource-action">
+              <a href="https://goodjobshawaii.org/" target="_blank" rel="noopener">goodjobshawaii.org</a>
+            </div>
+          </div>
+
+          <div class="today-resource">
+            <div class="today-resource-head">
+              <span class="today-resource-name">Apprenticeships — when you're ready for the real career</span>
+              <span class="today-resource-tag">Pays in 8–12 weeks</span>
+            </div>
+            <div class="today-resource-desc">
+              Once you have rent runway and short-term income, this is where the real money is. Hawai‘i registered apprenticeships pay <strong>$17–$112/hour at journey</strong>, with full benefits. They're the highest-ROI workforce path in the state. But they take time to get into — that's why this section is third, not first.
+            </div>
+            <div class="today-resource-action">
+              <a href="/" data-route="/">Browse all 73 programs →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="today-closing">
+          <strong>One more thing.</strong> If you're in immediate crisis — about to be evicted, food empty, kids hungry — call <a href="tel:211" style="color: var(--accent); font-weight: 600;">211</a> first. Don't fill out a form. Don't research programs. Talk to a person who knows what's actually available right now in your zip code. We built this page to point you to the right doors. They will help you walk through them.
+        </div>
+
+        <p style="font-family: var(--mono); font-size: 0.78rem; color: var(--ink-muted); margin: 28px 0 0; letter-spacing: 0.04em;">
+          Verified ${fmtDate(window.DATA.meta.lastSweep)}. If a phone number or address is wrong, <a href="/report" data-route="/report" style="color: var(--accent);">tell us</a>.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+function renderProgramsIndex() {
+  const all = sortPrograms(window.DATA.programs, 'status', 'asc');
+  const rows = all.map(p => renderProgramRow(p, { compact: true })).join('');
+
+  return `
+    <section class="detail">
+      <div class="container">
+        <div class="detail-eyebrow">Programs</div>
+        <h1>All ${all.length} catalogued apprenticeship programs</h1>
+        <p style="font-size: 1.05rem; color: var(--ink-soft); margin: 14px 0 8px; max-width: 60ch;">
+          Construction trades from the State's Act 17 list (Feb 2026), plus federal apprenticeships, plus 2024–2025 newly registered programs, plus non-construction programs from the DLIR 2021 list with current verification where possible.
+        </p>
+        <p style="font-family: var(--mono); font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 28px;">
+          <a href="/" data-route style="color: var(--accent);">← Back to chooser</a>
+        </p>
+
+        <div class="filter-bar" role="tablist" aria-label="Filter programs">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="oahu">O‘ahu</button>
+          <button class="filter-btn" data-filter="maui">Maui</button>
+          <button class="filter-btn" data-filter="big-island">Hawai‘i Island</button>
+          <button class="filter-btn" data-filter="kauai">Kaua‘i</button>
+          <button class="filter-btn" data-filter="union">Union</button>
+          <button class="filter-btn" data-filter="non-union">Non-union</button>
+          <button class="filter-btn" data-filter="federal">Federal</button>
+          <button class="filter-btn" data-filter="new">New (2024–25)</button>
+        </div>
+
+        <div class="sort-bar" id="programs-sort-bar">
+          <span class="sort-label">Sort by</span>
+          <button class="sort-btn active" data-pagesort="status">Status</button>
+          <button class="sort-btn" data-pagesort="pay">Pay</button>
+          <button class="sort-btn" data-pagesort="hours">Hours</button>
+          <button class="sort-btn" data-pagesort="length">Length</button>
+          <button class="sort-btn" data-pagesort="verified">Verified</button>
+          <button class="sort-btn" data-pagesort="trade">Trade</button>
+        </div>
+
+        <div class="program-list" id="programs-list">${rows}</div>
+      </div>
+    </section>
+  `;
+}
+
+function renderPathwaysIndex() {
+  const all = window.DATA.pathways;
+  const cards = all.map(p => `
+    <div class="pathway-card" data-pathway-id="${p.id}">
+      <div class="pathway-audience">${p.audience}</div>
+      <h3>${p.name}${p.newPathway ? '<span class="new-tag">New</span>' : ''}</h3>
+      <div class="pathway-what">${p.what}</div>
+      <div class="pathway-card-foot">${p.provider}</div>
+    </div>
+  `).join('');
+
+  return `
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-title-block">
+            <div class="section-eyebrow">Pathways · ${all.length} routes</div>
+            <h2>Routes into apprenticeships you might not know exist</h2>
+            <p>Direct entry programs, pre-apprenticeships, and population-specific pipelines. Each was built for a reason — usually to serve people the standard application process leaves behind.</p>
+          </div>
+        </div>
+        <div class="pathways-grid">${cards}</div>
+      </div>
+    </section>
+  `;
+}
+
+function renderFundingIndex() {
+  const all = window.DATA.funding;
+  const cards = all.map(f => `
+    <div class="pathway-card" data-funding-id="${f.id}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;">
+        ${fundingBadge(f.status)}
+      </div>
+      <h3>${f.name}</h3>
+      <div class="pathway-what">${f.covers}</div>
+      <div class="pathway-card-foot">${f.funder}</div>
+    </div>
+  `).join('');
+
+  return `
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-title-block">
+            <div class="section-eyebrow">Funding · ${all.length} sources</div>
+            <h2>Money to pay for training</h2>
+            <p>Scholarships, grants, GI Bill benefits, and tax credits that work with apprenticeships in Hawai‘i. Some are stable. Some are expiring or already wound down — we flag the difference.</p>
+          </div>
+        </div>
+        <div class="pathways-grid">${cards}</div>
+      </div>
+    </section>
+  `;
+}
+
+function renderProgramDetail(id) {
+  const p = window.DATA.programs.find(x => x.id === id);
+  if (!p) return renderNotFound();
+
+  const altRoutesBlock = p.altRoutes && p.altRoutes.length ? `
+    <div class="alt-routes">
+      <h4>The main number is unreliable. Try these instead.</h4>
+      <ul>
+        ${p.altRoutes.map(r => `<li><strong>${r.label}</strong> — <a href="tel:${r.phone.replace(/[^0-9+]/g,'')}">${r.phone}</a></li>`).join('')}
+      </ul>
+    </div>
+  ` : '';
+
+  const reqs = [];
+  if (p.minAge) reqs.push(['Min age', p.minAge]);
+  if (p.hsRequired === true) reqs.push(['HS / GED', 'Required']);
+  else if (p.hsRequired) reqs.push(['HS / GED', p.hsRequired]);
+  if (p.algebraRequired) reqs.push(['Algebra', p.algebraRequired === true ? 'Required' : p.algebraRequired]);
+  if (p.driverLicense) reqs.push(['Driver\'s license', 'Required']);
+  if (p.appFee) reqs.push(['Application fee', p.appFee]);
+
+  const stats = [];
+  if (p.lengthYears) stats.push(['Length', `${p.lengthYears} years`]);
+  if (p.ojtHours) stats.push(['On-the-job hours', p.ojtHours]);
+  if (p.classroomHours) stats.push(['Classroom hours', p.classroomHours]);
+  stats.push(['Islands served', p.islands]);
+  stats.push(['Sponsor type', p.type]);
+
+  const linkedPathways = (p.pathways || []).map(pid => window.DATA.pathways.find(x => x.id === pid)).filter(Boolean);
+
+  return `
+    <section class="detail">
+      <div class="container">
+        <button class="detail-back" data-back>← Back</button>
+        <div class="detail-eyebrow">${p.type.toUpperCase()} · ${p.id}</div>
+        <h1>${p.trade}${p.newProgram ? '<span class="new-tag">New 2024–25</span>' : ''}</h1>
+        <div class="detail-sponsor">${p.sponsor}</div>
+
+        <div class="detail-status-row">
+          ${badge(p.status)}
+          ${verifiedStamp(p.lastVerified)}
+        </div>
+
+        ${p.statusNote ? `<p style="font-size:1.05rem;color:var(--ink-soft);margin-bottom:32px;max-width:65ch;">${p.statusNote}</p>` : ''}
+
+        <div class="detail-grid">
+          <div>
+            <div class="detail-section">
+              <h2>Program at a glance</h2>
+              <ul>
+                ${stats.map(([k,v]) => `<li><span class="detail-key">${k}</span><span class="detail-val">${v}</span></li>`).join('')}
+              </ul>
+            </div>
+
+            ${reqs.length ? `
+              <div class="detail-section">
+                <h2>Requirements</h2>
+                <ul>
+                  ${reqs.map(([k,v]) => `<li><span class="detail-key">${k}</span><span class="detail-val">${v}</span></li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+
+            ${linkedPathways.length ? `
+              <div class="detail-section">
+                <h2>Pathways that might apply to you</h2>
+                <ul>
+                  ${linkedPathways.map(lp => `
+                    <li>
+                      <span class="detail-key">${lp.audience}</span>
+                      <span class="detail-val"><a href="/pathways/${lp.id}">${lp.name}</a></span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            ` : ''}
+
+            <div class="detail-section">
+              <h2>Before you call</h2>
+              <p>This program will likely ask about your age, HS/GED status, current employment, and which island you live on. Have those ready.</p>
+              <p>If any of these apply to you, mention them — there may be a faster pathway:</p>
+              <ul style="display:block;">
+                <li style="display:list-item;border:none;padding:4px 0;">Veteran or active military within 180 days of separation</li>
+                <li style="display:list-item;border:none;padding:4px 0;">Currently or formerly incarcerated</li>
+                <li style="display:list-item;border:none;padding:4px 0;">Maui fire survivor (Aug 2023)</li>
+                <li style="display:list-item;border:none;padding:4px 0;">Native Hawaiian, Pacific Islander / COFA citizen</li>
+                <li style="display:list-item;border:none;padding:4px 0;">Foster youth aging out</li>
+                <li style="display:list-item;border:none;padding:4px 0;">Person with a disability</li>
+              </ul>
+              <p style="margin-top:14px;"><a href="/how-to-call">→ Read the full caller's guide</a></p>
+            </div>
+
+            <div class="detail-section">
+              <h2>About this listing</h2>
+              <p style="font-size:0.95rem;color:var(--ink-muted);">
+                ${p.tierNote || TIER_NOTE[p.tier] || ''}
+              </p>
+              <p style="font-size:0.95rem;color:var(--ink-muted);margin-top:10px;">
+                Found a wrong number, an outdated detail, or different information when you called?
+                <a href="/report" data-route="/report">Tell us</a> — that's how the site stays accurate.
+              </p>
+            </div>
+          </div>
+
+          <aside>
+            <div class="apply-block">
+              <h2>How to apply</h2>
+              ${p.phone ? `<div><a href="tel:${p.phone.replace(/[^0-9+]/g,'')}" class="phone-link">${p.phone}</a></div>` : ''}
+              ${p.applyUrl ? `<a href="${p.applyUrl}" target="_blank" rel="noopener" class="apply-cta">Visit application page →</a>` : ''}
+              ${altRoutesBlock}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderPathwayDetail(id) {
+  const p = window.DATA.pathways.find(x => x.id === id);
+  if (!p) return renderNotFound();
+
+  const linkedPrograms = window.DATA.programs.filter(prog => (prog.pathways || []).includes(p.id));
+
+  return `
+    <section class="detail">
+      <div class="container">
+        <button class="detail-back" data-back>← Back</button>
+        <div class="detail-eyebrow">PATHWAY${p.newPathway ? ' · NEW' : ''}</div>
+        <h1>${p.name}</h1>
+        <div class="detail-sponsor">${p.provider}</div>
+
+        <div class="detail-grid">
+          <div>
+            <div class="detail-section">
+              <h2>Who this is for</h2>
+              <p>${p.audience}</p>
+            </div>
+            <div class="detail-section">
+              <h2>What it does</h2>
+              <p>${p.what}</p>
+            </div>
+            ${linkedPrograms.length ? `
+              <div class="detail-section">
+                <h2>Programs this leads to</h2>
+                <ul>
+                  ${linkedPrograms.map(lp => `
+                    <li>
+                      <span class="detail-key">${lp.sponsor}</span>
+                      <span class="detail-val"><a href="/program/${lp.id}">${lp.trade}</a></span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          </div>
+          <aside>
+            <div class="apply-block">
+              <h2>How to access</h2>
+              ${p.contact ? `<div><a href="tel:${p.contact.replace(/[^0-9+]/g,'')}" class="phone-link">${p.contact}</a></div>` : ''}
+              ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" class="apply-cta">Visit website →</a>` : ''}
+              <ul style="margin-top:18px;">
+                <li><span class="detail-key">Cost</span><span class="detail-val">${p.cost}</span></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderFundingDetail(id) {
+  const f = window.DATA.funding.find(x => x.id === id);
+  if (!f) return renderNotFound();
+
+  return `
+    <section class="detail">
+      <div class="container">
+        <button class="detail-back" data-back>← Back</button>
+        <div class="detail-eyebrow">FUNDING SOURCE</div>
+        <h1>${f.name}</h1>
+        <div class="detail-sponsor">${f.funder}</div>
+
+        <div class="detail-status-row">
+          ${fundingBadge(f.status)}
+          ${f.statusNote ? `<span style="font-size:0.92rem;color:var(--ink-muted);">${f.statusNote}</span>` : ''}
+        </div>
+
+        <div class="detail-grid">
+          <div>
+            <div class="detail-section">
+              <h2>What it covers</h2>
+              <p>${f.covers}</p>
+            </div>
+            <div class="detail-section">
+              <h2>Who qualifies</h2>
+              <p>${f.eligibility}</p>
+            </div>
+          </div>
+          <aside>
+            <div class="apply-block">
+              <h2>Apply or learn more</h2>
+              ${f.url ? `<a href="${f.url}" target="_blank" rel="noopener" class="apply-cta">Visit official page →</a>` : ''}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderHowToCall() {
+  return `
+    <section class="detail">
+      <div class="container-narrow">
+        <div class="detail-eyebrow">A guide for users</div>
+        <h1>How to call an apprenticeship program</h1>
+        <p class="hero-lede" style="margin-top:18px;margin-bottom:32px;">
+          Most calls take 5–10 minutes. You only need to do this once per program you're seriously considering.
+        </p>
+
+        <div class="prose">
+          <h2>Before you pick up the phone</h2>
+          <p><strong>This is the most important part of the call.</strong> A 2-minute prep makes the difference between a useful answer and a confusing one.</p>
+
+          <h3>Know your basics</h3>
+          <p>Have these ready in your head or on a piece of paper:</p>
+          <ul>
+            <li><strong>Your age</strong> (some programs have minimums — usually 16, 17, or 18)</li>
+            <li><strong>HS / GED status</strong> (do you have a high school diploma or GED? If not, are you working on one?)</li>
+            <li><strong>Algebra status</strong> (some electrical and lineman programs ask if you've completed at least 1 year of high school algebra)</li>
+            <li><strong>Driver's license</strong> (some construction programs require it; some don't)</li>
+            <li><strong>Island you live on</strong> (some programs are O‘ahu-only; some are statewide; some are neighbor-island only)</li>
+            <li><strong>Any prior trade experience</strong> (even informal — helping a relative do construction, working as a CNA, etc.)</li>
+          </ul>
+
+          <h3>Know your situation, if it applies</h3>
+          <p>Some programs have faster or more supported routes for specific groups. If any of these describe you, say so on the call — don't wait to be asked.</p>
+          <ul>
+            <li><strong>Veteran, active military within 180 days of separation, or military spouse</strong> — ask about H2H, GI Bill, SkillBridge, MyCAA</li>
+            <li><strong>Currently or formerly incarcerated</strong> — ask about Beyond Bars (Carpenters), Laumaka → LIUNA pipeline (Laborers), or Going Home Hawai‘i</li>
+            <li><strong>Maui fire survivor (Aug 2023)</strong> — ask about CNHA Hawaiian Trades Academy and MEO programs</li>
+            <li><strong>Native Hawaiian</strong> — ask about ALU LIKE NHCTEP, OHA-funded programs, or Hawaiian Trades Academy</li>
+            <li><strong>Pacific Islander / COFA citizen</strong> — ask whether We Are Oceania has placed residents in this program</li>
+            <li><strong>Person with a disability</strong> — ask whether the sponsor works with HI Division of Vocational Rehabilitation</li>
+            <li><strong>Foster youth aging out</strong> — ask whether EPIC ‘Ohana HI HOPES has connected anyone here</li>
+            <li><strong>Currently working or foreign-trained</strong> — ask whether prior hours or credentials count toward Direct Entry</li>
+          </ul>
+
+          <hr/>
+
+          <h2>What to ask, in order</h2>
+          <p>These five questions get you 90% of what you need to know. <strong>Ask them in this order.</strong> Each builds on the last.</p>
+
+          <h3>1. "Are you accepting applications right now?"</h3>
+          <p>This is the most important question and the answer is rarely a simple yes or no. Listen for:</p>
+          <ul>
+            <li><strong>"Yes, rolling"</strong> — apply anytime; you'll be called when a spot opens</li>
+            <li><strong>"Yes, but the next intake window is [dates]"</strong> — you have to apply during a specific window</li>
+            <li><strong>"Pool of Eligible is open"</strong> — you apply, take an aptitude test, and get placed in a 2-year-valid pool</li>
+            <li><strong>"Closed right now"</strong> — write down when they expect to reopen and ask if you can be added to a notification list</li>
+            <li><strong>"Members only"</strong> — only for existing union members or current employees</li>
+          </ul>
+
+          <h3>2. "What does the application process look like?"</h3>
+          <p>You're listening for: how many steps, what each involves, and how long the whole thing takes. Common steps: online form, application fee, aptitude test, physical/drug screen, interview, background check.</p>
+
+          <h3>3. "What are the prerequisites I need to meet?"</h3>
+          <p>If you don't currently meet a prerequisite, <strong>ask if there's a pre-apprenticeship program that helps people prepare</strong>. The answer is often yes and they don't volunteer it.</p>
+
+          <h3>4. "Are there any direct-entry or advanced-standing pathways I might qualify for?"</h3>
+          <p>This is the question almost nobody asks, and it can save you 1–2 years.</p>
+          <p>Examples to listen for:</p>
+          <ul>
+            <li><strong>Prior verified hours of related work</strong> (IBEW 1186 has direct entry for 3,500+ verified electrical hours)</li>
+            <li><strong>Accredited certificate</strong> (2-year electricity/electronics cert can give direct entry)</li>
+            <li><strong>Pre-apprenticeship completion</strong> (BIA Hawaii's PACT, IBEW pre-app credential, Hawaiian Trades Academy)</li>
+            <li><strong>Military training</strong> (USMAP, A-school)</li>
+            <li><strong>Veteran status</strong> (H2H at HCATF)</li>
+          </ul>
+          <p>If you have any trade-adjacent experience, mention it and ask if it counts.</p>
+
+          <h3>5. "What's the best way to apply, and who should I follow up with?"</h3>
+          <p>Get a <strong>specific URL</strong>, a <strong>specific email</strong>, and ideally a <strong>specific person's name</strong>. The named person is the one who actually sees your application.</p>
+
+          <hr/>
+
+          <h2>Red flags to listen for</h2>
+          <ul>
+            <li>"Our website is being updated, check back later" — and the website has been like that for months</li>
+            <li>"We don't really know when the next intake is" — fine if rolling; concerning if it's been TBD for a year</li>
+            <li>Large upfront application fees (most legitimate apprenticeships are under $75)</li>
+            <li>"We can guarantee you a job" — apprenticeships don't work that way</li>
+          </ul>
+
+          <h2>If a number doesn't work</h2>
+          <p>If a phone number is dead or a website redirects to something unrelated, here's where the master list lives:</p>
+          <ul>
+            <li><strong>DLIR Workforce Development Division</strong> — <a href="mailto:dlir.workforce.develop@hawaii.gov">dlir.workforce.develop@hawaii.gov</a> or <a href="tel:8085868877">(808) 586-8877</a></li>
+            <li><strong>Your local American Job Center</strong> — O‘ahu <a href="tel:8087685701">(808) 768-5701</a> · Maui <a href="tel:8082705777">(808) 270-5777</a> · Hawai‘i Island <a href="tel:8089356527">(808) 935-6527</a> · Kaua‘i <a href="tel:8082743056">(808) 274-3056</a></li>
+          </ul>
+          <p>If you find a number on this site that's wrong, <a href="/report" data-route="/report">tell us</a>. That's how the site stays accurate.</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+/* ============== REPORT FORM PAGE ==============
+   Web3Forms integration. User submits form on 808jobs.org; Web3Forms
+   silently emails the submission to the access-key owner's email.
+   The user never sees the destination email address.
+   Setup: get a free access key at https://web3forms.com/ and replace
+   the WEB3FORMS_ACCESS_KEY constant below. */
+const WEB3FORMS_ACCESS_KEY = '77dc37f6-14c8-4faa-83aa-a9309dd421eb';
+
+function renderReport() {
+  // Build a program dropdown from data.js so users can pick the exact program
+  const programOptions = window.DATA.programs
+    .slice()
+    .sort((a, b) => a.trade.localeCompare(b.trade))
+    .map(p => `<option value="${p.id} — ${p.trade.replace(/"/g, '&quot;')}">${p.trade} (${p.sponsor.split('(')[0].trim()})</option>`)
+    .join('');
+
+  return `
+    <section class="detail">
+      <div class="container-narrow">
+        <div class="detail-eyebrow">Report a problem</div>
+        <h1>Tell us what's wrong.</h1>
+        <p style="font-size: 1.05rem; color: var(--ink-soft); margin: 16px 0 8px; max-width: 60ch; line-height: 1.55;">
+          If a phone number is wrong, a program no longer exists, or something else is off — let us know. We verify reports before updating the listing. We don't share your information.
+        </p>
+        <p style="font-family: var(--mono); font-size: 0.82rem; color: var(--ink-muted); margin-bottom: 28px; letter-spacing: 0.04em;">
+          <a href="/" data-route="/" style="color: var(--accent);">← Back to listings</a>
+        </p>
+
+        <div id="report-form-container">
+          <form class="report-form" id="report-form" onsubmit="return submitReport(event)">
+            <input type="hidden" name="access_key" value="${WEB3FORMS_ACCESS_KEY}" />
+            <input type="hidden" name="subject" value="808jobs listing report" />
+            <input type="hidden" name="from_name" value="808jobs.org Report Form" />
+            <input type="hidden" name="redirect" value="false" />
+            <!-- honeypot for bots -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+            <div class="report-field">
+              <label for="rep-program">
+                Which program?<span class="required">*</span>
+              </label>
+              <select class="report-select" id="rep-program" name="program" required>
+                <option value="">— Select a program —</option>
+                ${programOptions}
+                <option value="OTHER">Other / not in this list</option>
+                <option value="GENERAL">General feedback (not about a specific program)</option>
+              </select>
+            </div>
+
+            <div class="report-field">
+              <label>What's the issue?<span class="required">*</span></label>
+              <div class="report-radio-group">
+                <label class="report-radio">
+                  <input type="radio" name="issue_type" value="phone" required>
+                  <span>Phone number is wrong or disconnected</span>
+                </label>
+                <label class="report-radio">
+                  <input type="radio" name="issue_type" value="closed">
+                  <span>Program no longer exists or stopped accepting applicants</span>
+                </label>
+                <label class="report-radio">
+                  <input type="radio" name="issue_type" value="link">
+                  <span>Apply / website link is broken or wrong</span>
+                </label>
+                <label class="report-radio">
+                  <input type="radio" name="issue_type" value="info">
+                  <span>Information is outdated (hours, address, requirements, wages)</span>
+                </label>
+                <label class="report-radio">
+                  <input type="radio" name="issue_type" value="missing">
+                  <span>A program is missing from the site</span>
+                </label>
+                <label class="report-radio">
+                  <input type="radio" name="issue_type" value="other">
+                  <span>Something else</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="report-field">
+              <label for="rep-details">
+                Tell us more<span class="required">*</span>
+              </label>
+              <textarea class="report-textarea" id="rep-details" name="details" required placeholder="What did you encounter? If you called a number, what happened? If you have the correct info, share it here."></textarea>
+              <div class="report-help">The more specific, the faster we can verify and fix it.</div>
+            </div>
+
+            <div class="report-field">
+              <label for="rep-email">
+                Your email <span class="optional">— optional, only if you want a follow-up</span>
+              </label>
+              <input class="report-input" type="email" id="rep-email" name="email" placeholder="you@example.com">
+              <div class="report-help">We won't share this. We'll only use it if we need to confirm something with you.</div>
+            </div>
+
+            <div id="report-error" style="display:none;"></div>
+
+            <button type="submit" class="report-submit" id="report-submit-btn">
+              Submit report
+            </button>
+          </form>
+        </div>
+
+        <p style="font-family: var(--mono); font-size: 0.78rem; color: var(--ink-muted); margin: 36px 0 0; letter-spacing: 0.04em;">
+          Verified ${fmtDate(window.DATA.meta.lastSweep)}. Your report goes directly to the person who maintains this site.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+/* Web3Forms submission handler — called inline from form's onsubmit */
+async function submitReport(event) {
+  event.preventDefault();
+  const form = event.target;
+  const submitBtn = document.getElementById('report-submit-btn');
+  const errorEl = document.getElementById('report-error');
+  const formContainer = document.getElementById('report-form-container');
+
+  errorEl.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
+  try {
+    const formData = new FormData(form);
+    // Append metadata about which page they came from
+    formData.append('source_page', location.pathname);
+    formData.append('user_agent', navigator.userAgent.substring(0, 200));
+
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      // Replace form with success message
+      formContainer.innerHTML = `
+        <div class="report-success">
+          <strong>Got it. Thank you.</strong>
+          We received your report and will review it within a few days. If you left an email, we may follow up with what we learned. Mahalo for helping keep this tool accurate — that's how it stays useful for the next person.
+        </div>
+        <p style="margin-top: 24px;">
+          <a href="/" data-route="/" style="color: var(--accent); font-weight: 500;">← Back to listings</a>
+        </p>
+      `;
+    } else {
+      throw new Error(result.message || 'Submission failed');
+    }
+  } catch (err) {
+    errorEl.style.display = 'block';
+    errorEl.className = 'report-error';
+    errorEl.innerHTML = `Sorry, something went wrong sending your report (${err.message || 'unknown error'}). You can try again, or email <a href="/report" data-route="/report" style="color: var(--accent);">report@808jobs.org</a> directly.`;
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit report';
+  }
+
+  return false;
+}
+
+function renderAbout() {
+  return `
+    <section class="detail">
+      <div class="container-narrow">
+        <div class="detail-eyebrow">About</div>
+        <h1>What 808jobs is, and what it isn't</h1>
+
+        <div class="prose">
+          <p style="font-size:1.15rem;margin-top:24px;">
+            808jobs is a free, no-signup civic tool for Hawai‘i residents looking for a way into a trade. It's a sister project to <a href="https://808housing.org">808housing.org</a>, built by one person in evenings.
+          </p>
+
+          <h2>Why this exists</h2>
+          <p>Hawai‘i has a real apprenticeship system. The State Apprenticeship Council reports <strong>5,390 active apprentices</strong> as of March 2025, with <strong>1,556 newly registered in 2024</strong>. But the page residents are sent to when they search for "Hawaii apprenticeship" hasn't been updated since January 2021. The state's own website acknowledges this — the non-construction trades list there is marked "currently being updated and temporarily unavailable" with a note that it doesn't reflect the latest updates.</p>
+          <p>Five new programs have been registered since 2023 — including Hawai‘i's first teacher apprenticeship and first early-childhood-educator apprenticeship — and none of them made it onto a public list. Federal funding has shifted under workforce programs in ways that aren't being communicated to job-seekers. People are calling dead numbers and giving up.</p>
+          <p>This site exists to close that gap. Honestly. With dates.</p>
+
+          <h2>What this site does</h2>
+          <ul>
+            <li>Compiles current public information about apprenticeship programs in Hawai‘i, with a "last verified" date on every listing</li>
+            <li>Surfaces non-obvious pathways — direct entry, pre-apprenticeships, justice-impacted, veterans, Native Hawaiian, foster youth</li>
+            <li>Coaches you through making a productive call to the program coordinator yourself</li>
+            <li>Lists funding sources and flags which are stable, expiring, or already wound down</li>
+          </ul>
+
+          <h2>What this site isn't</h2>
+          <ul>
+            <li>Not a job board — we list training pathways into trades, not job openings</li>
+            <li>Not a substitute for the <a href="/how-to-call">American Job Centers</a>, which do navigation in person</li>
+            <li>Not a replacement for calling the program. The user is the verification system.</li>
+          </ul>
+
+          <h2>The staleness doctrine</h2>
+          <p>Every listing carries a "last verified" date. Most programs in Hawai‘i haven't been independently confirmed since January 2021. We'd rather tell you that — and let you decide whether to call — than pretend everything is current.</p>
+          <p>We sweep the data quarterly. We do a deeper refresh annually. If you call a program and learn something different from what we have listed, <a href="/report" data-route="/report">tell us</a> — that's how the site stays accurate.</p>
+
+          <p style="font-family:var(--mono);font-size:0.85rem;color:var(--ink-muted);margin-top:24px;">
+            Last data sweep: <strong>${fmtDate(window.DATA.meta.lastSweep)}</strong><br/>
+            Next scheduled sweep: <strong>${fmtDate(window.DATA.meta.nextSweep)}</strong>
+          </p>
+
+          <h2>Privacy</h2>
+          <ul>
+            <li>No signups, no tracking, no data collection</li>
+            <li>No ads, no sponsorships, no paid placements</li>
+            <li>Open source — public GitHub repo</li>
+          </ul>
+
+          <h2>Contact</h2>
+          <p>
+            Listing corrections: <a href="/report" data-route="/report">report@808jobs.org</a><br/>
+            Everything else: <a href="mailto:hello@808jobs.org">hello@808jobs.org</a>
+          </p>
+
+          <div class="pull-quote">
+            "The site's job is to give you a productive call. Not to replace it."
+          </div>
+
+          <p style="font-family:var(--mono);font-size:0.82rem;color:var(--ink-muted);">
+            808jobs.org · Built in Honolulu · Updated quarterly
+          </p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderNotFound() {
+  return `
+    <section class="detail">
+      <div class="container-narrow" style="text-align:center;padding:64px 24px;">
+        <div class="detail-eyebrow">404</div>
+        <h1>Not found</h1>
+        <p class="hero-lede" style="margin:24px auto;">That page doesn't exist or has moved.</p>
+        <a href="/" data-route="/" class="apply-cta">← Back to programs</a>
+      </div>
+    </section>
+  `;
+}
+
+/* Initial render */
+render();
+</script>
+
+</body>
+</html>
